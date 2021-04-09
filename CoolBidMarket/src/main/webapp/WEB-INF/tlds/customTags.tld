@@ -1,0 +1,27 @@
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+ version="2.0">
+ <tlib-version>1.0</tlib-version>
+ <short-name>Custom Tags</short-name>
+ <uri>http://customtags.cool</uri>
+ 
+ <tag>
+ 	<name>category</name>
+ 	<tag-class>com.app.main.customTags.CategoryTag</tag-class>
+ 	<body-content>empty</body-content>
+ </tag>
+ 
+ <tag>
+ 	<name>buyerNav</name>
+ 	<tag-class>com.app.main.customTags.BuyerNavTag</tag-class>
+ 	<body-content>empty</body-content>
+ </tag>
+ 
+ <tag>
+ 	<name>sellerNav</name>
+ 	<tag-class>com.app.main.customTags.SellerNavTag</tag-class>
+ 	<body-content>empty</body-content>
+ </tag>
+ 
+</taglib>
