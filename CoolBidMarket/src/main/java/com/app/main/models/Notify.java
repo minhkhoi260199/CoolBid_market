@@ -1,5 +1,5 @@
 package com.app.main.models;
-// Generated Apr 9, 2021, 1:31:25 PM by Hibernate Tools 5.1.10.Final
+// Generated Apr 3, 2021, 11:02:42 AM by Hibernate Tools 5.1.10.Final
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,14 +19,14 @@ import javax.persistence.Table;
 public class Notify implements java.io.Serializable {
 
 	private Integer id;
-	private User user;
+	private Users users;
 	private String content;
 
 	public Notify() {
 	}
 
-	public Notify(User user, String content) {
-		this.user = user;
+	public Notify(Users users, String content) {
+		this.users = users;
 		this.content = content;
 	}
 
@@ -44,12 +44,12 @@ public class Notify implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	public User getUser() {
-		return this.user;
+	public Users getUsers() {
+		return this.users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 	@Column(name = "content", length = 65535)

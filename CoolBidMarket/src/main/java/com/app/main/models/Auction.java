@@ -1,5 +1,5 @@
 package com.app.main.models;
-// Generated Apr 9, 2021, 1:31:25 PM by Hibernate Tools 5.1.10.Final
+// Generated Apr 3, 2021, 11:02:42 AM by Hibernate Tools 5.1.10.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -26,7 +26,7 @@ public class Auction implements java.io.Serializable {
 
 	private Integer id;
 	private Product product;
-	private User user;
+	private Users users;
 	private Double price;
 	private Date time;
 	private Set<Invoice> invoices = new HashSet<Invoice>(0);
@@ -34,9 +34,9 @@ public class Auction implements java.io.Serializable {
 	public Auction() {
 	}
 
-	public Auction(Product product, User user, Double price, Date time, Set<Invoice> invoices) {
+	public Auction(Product product, Users users, Double price, Date time, Set<Invoice> invoices) {
 		this.product = product;
-		this.user = user;
+		this.users = users;
 		this.price = price;
 		this.time = time;
 		this.invoices = invoices;
@@ -66,12 +66,12 @@ public class Auction implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	public User getUser() {
-		return this.user;
+	public Users getUsers() {
+		return this.users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 	@Column(name = "price", precision = 22, scale = 0)

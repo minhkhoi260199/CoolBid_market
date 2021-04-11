@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="tmp" tagdir="/WEB-INF/tags"%>
 <tmp:authTemplate title="Login">
 	<jsp:attribute name="content">
-	
         <div class="page-content--bge5">
             <div class="container">
                 <div class="login-wrap">
@@ -14,14 +15,14 @@
                             </a>
                         </div>
                         <div class="login-form">
-                            <form action="" method="post">
+                            <s:form modelAttribute="account" method="post" action="${pageContext.request.contextPath }/auth/process-login">>
                                 <div class="form-group">
-                                    <label>Email Address</label>
-                                    <input class="au-input au-input--full" type="email" name="email" placeholder="Email">
+                                    <label>Username</label>
+                                    <s:input class="au-input au-input--full" type="text" path="username" name="username" placeholder="Username"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Password</label>
-                                    <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
+                                    <s:input class="au-input au-input--full" type="password" path="password" name="password" placeholder="Password"/>
                                 </div>
                                 <!-- <div class="login-checkbox">
                                     <label>
@@ -38,7 +39,7 @@
                                         <button class="au-btn au-btn--block au-btn--blue2">sign in with twitter</button>
                                     </div>
                                 </div> -->
-                            </form>
+                            </s:form>
                             <div class="register-link">
                                 <p>
                                     Don't you have account?

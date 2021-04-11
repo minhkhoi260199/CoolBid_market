@@ -1,5 +1,5 @@
 package com.app.main.models;
-// Generated Apr 9, 2021, 1:31:25 PM by Hibernate Tools 5.1.10.Final
+// Generated Apr 3, 2021, 11:02:42 AM by Hibernate Tools 5.1.10.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,14 +21,14 @@ public class Role implements java.io.Serializable {
 
 	private Integer id;
 	private String name;
-	private Set<User> users = new HashSet<User>(0);
+	private Set<Users> userses = new HashSet<Users>(0);
 
 	public Role() {
 	}
 
-	public Role(String name, Set<User> users) {
+	public Role(String name, Set<Users> userses) {
 		this.name = name;
-		this.users = users;
+		this.userses = userses;
 	}
 
 	@Id
@@ -53,12 +53,12 @@ public class Role implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
-	public Set<User> getUsers() {
-		return this.users;
+	public Set<Users> getUserses() {
+		return this.userses;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUserses(Set<Users> userses) {
+		this.userses = userses;
 	}
 
 }

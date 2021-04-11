@@ -16,9 +16,10 @@
                             </a>
                         </div>
                         <div class="login-form">
-                            <s:form method="post" action="${pageContext.request.contextPath }/auth/register" modelAttribute="user">
+                            <form method="post" action="${pageContext.request.contextPath }/auth/register" modelAttribute="user">
                                 <div class="form-group">
                                     <label>Username</label> <s:errors path="username" style="color:red; font-style:italic"></s:errors>
+                                    <s:input path="username"/>
                                     <s:input
 										class="au-input au-input--full" type="text" name="username" path="username"
 										placeholder="Username"/>
@@ -70,7 +71,7 @@
 									class="au-btn au-btn--block au-btn--green m-b-20" type="submit">
 									register
 								</button>
-                            </s:form>
+                            </form>
                             <div class="register-link">
                                 <p>
                                     Already have account?
@@ -82,5 +83,7 @@
                 </div>
             </div>
         </div>
+		
+	
 	</jsp:attribute>
 </tmp:authTemplate>
