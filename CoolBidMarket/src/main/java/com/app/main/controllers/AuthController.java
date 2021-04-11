@@ -40,8 +40,9 @@ public class AuthController {
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public String login(@RequestParam(value = "error", required = false) String error,
 			@RequestParam(value = "logout", required = false) String logout, ModelMap modelMap) {
+		modelMap.put("user", new Users());
 		if (error != null) {
-			modelMap.put("msg", "Failed");
+			modelMap.put("msg", "Username/Password is wrong");
 		}
 		if (logout != null) {
 			modelMap.put("msg", "Logout Successful");

@@ -15,7 +15,8 @@
                             </a>
                         </div>
                         <div class="login-form">
-                            <s:form modelAttribute="account" method="post" action="${pageContext.request.contextPath }/auth/process-login">>
+                        	<span style="color:red">${msg }</span>
+                            <s:form modelAttribute="user" method="post" action="${pageContext.request.contextPath }/auth/process-login">
                                 <div class="form-group">
                                     <label>Username</label>
                                     <s:input class="au-input au-input--full" type="text" path="username" name="username" placeholder="Username"/>
