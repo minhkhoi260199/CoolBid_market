@@ -17,8 +17,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		
 		http.authorizeRequests()
-			.antMatchers("/api/demo/**").access("hasRole('Shop')")
-//			.antMatchers("/product/**").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN')")
+//			.antMatchers("/api/demo/**").access("hasRole('Shop')")
+			.antMatchers("/seller/addProduct").access("hasRole('ROLE_SHOP') or hasRole('ROLE_ADMIN')")
 //			.antMatchers("/category/**").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE')")
 			.and()
 			.formLogin().loginPage("/auth/login?login")
@@ -30,8 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //			.and()
 //			.logout().logoutUrl("/account/logout")
 //			.logoutSuccessUrl("/account/login?logout")
-//			.and()
-//			.exceptionHandling().accessDeniedPage("/account/accessDenied")
+			.and()
+			.exceptionHandling().accessDeniedPage("/seller")
 		;
 		
 	}

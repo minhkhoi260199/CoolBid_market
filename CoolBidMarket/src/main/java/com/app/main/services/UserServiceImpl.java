@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
 		} else {
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			if (user.getStatus().getId() == 7) {
+				System.out.println(user.getRole().getName());
 				authorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
 			}
 			return new User(user.getUsername(), user.getPassword(), authorities);

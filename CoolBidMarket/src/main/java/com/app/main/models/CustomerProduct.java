@@ -12,6 +12,7 @@ public class CustomerProduct implements Serializable {
 	private Double startPrice;
 	private Double gap;
 	private String productName;
+	private Integer amountTime;
 	public Integer getId() {
 		return id;
 	}
@@ -66,8 +67,19 @@ public class CustomerProduct implements Serializable {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
+	public Integer getAmountTime() {
+		return amountTime;
+	}
+	public void setAmountTime(Integer amountTime) {
+		this.amountTime = amountTime;
+	}
+	public CustomerProduct() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public CustomerProduct(Integer id, String categoryName, Integer status, String sellerName, String description,
-			String image, Double startPrice, Double gap, String productName) {
+			String image, Double startPrice, Double gap, String productName, Integer amountTime) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
@@ -78,10 +90,7 @@ public class CustomerProduct implements Serializable {
 		this.startPrice = startPrice;
 		this.gap = gap;
 		this.productName = productName;
-	}
-	public CustomerProduct() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.amountTime = amountTime;
 	}
 	
 	
