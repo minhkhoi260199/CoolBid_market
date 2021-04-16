@@ -18,7 +18,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests()
 //			.antMatchers("/api/demo/**").access("hasRole('Shop')")
-			.antMatchers("/seller/addProduct").access("hasRole('ROLE_SHOP') or hasRole('ROLE_ADMIN')")
+			.antMatchers("/seller/addProduct").access("hasRole('ROLE_CUSTOMER') or hasRole('ROLE_ADMIN')")
 //			.antMatchers("/category/**").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE')")
 			.and()
 			.formLogin().loginPage("/auth/login?login")

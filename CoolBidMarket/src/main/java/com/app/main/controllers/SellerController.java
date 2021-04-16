@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -21,9 +22,12 @@ import com.app.main.helpers.UploadHelper;
 import com.app.main.models.AmountTime;
 import com.app.main.models.Category;
 import com.app.main.models.Product;
+import com.app.main.models.Users;
 import com.app.main.services.AmountTimeService;
 import com.app.main.services.CategoryService;
 import com.app.main.services.ProductService;
+import com.app.main.services.StatusService;
+import com.app.main.services.UserService;
 
 @Controller
 @RequestMapping({"seller**"})
@@ -38,6 +42,11 @@ public class SellerController implements ServletContextAware {
 	ProductService productService;
 	@Autowired
 	AmountTimeService amountTimeService;
+	@Autowired
+	StatusService statusService;
+	
+	@Autowired
+	UserService userService;
 	
 	@Override
 	public void setServletContext(ServletContext servletContext) {
@@ -63,49 +72,41 @@ public class SellerController implements ServletContextAware {
 	}
 	
 	@RequestMapping(value = {"addProduct"} ,method = RequestMethod.POST)
-	public String processAddProduct(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult, ModelMap modelMap, @RequestParam("category") String categoryString, @RequestParam("amount_time_id") String amountTimeString, @RequestParam("file") MultipartFile file) {
-		System.out.println(bindingResult.getAllErrors());
-		if (!bindingResult.hasErrors()) {
-			if (categoryString != "") {
-				if (amountTimeString != "") {
-					try {
-						int categoryId = Integer.parseInt(categoryString);
-						Category category = categoryService.findById(categoryId);
-						product.setCategory(category);
-						
-						int amountTimeId = Integer.parseInt(amountTimeString);
-						AmountTime amountTime = amountTimeService.findById(amountTimeId);
-						product.setAmountTime(amountTime);
-						
-						if (file.getOriginalFilename() != "") {
+	public String processAddProduct(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult, Authentication authentication, ModelMap modelMap, @RequestParam("category") String categoryString, @RequestParam("amount_time_id") String amountTimeString, @RequestParam("file") MultipartFile file) {
+		if (authentication.getName() != null) {
+			if (!bindingResult.hasErrors()) {
+				if (categoryString != "") {
+					if (amountTimeString != "") {
+						try {
+							int categoryId = Integer.parseInt(categoryString);
+							Category category = categoryService.findById(categoryId);
+							product.setCategory(category);
 							
+							int amountTimeId = Integer.parseInt(amountTimeString);
+							AmountTime amountTime = amountTimeService.findById(amountTimeId);
+							product.setAmountTime(amountTime);
+							
+							String photo = UploadHelper.saveImage(servletContext, file);
+							if (file.getOriginalFilename() != "") {
+								product.setImage(file.getOriginalFilename());
+							}
+							Users user = userService.findUserByUsername(authentication.getName());
+							product.setStatus(statusService.findById(1));
+							product.setUsers(user);
+							productService.save(product);
+							return "redirect:/seller";
+						} catch (Exception e) {
+
 						}
-						System.out.println("File name: " + file.getOriginalFilename());
-						System.out.println("File size: " + file.getSize());
-						System.out.println("File ext: " + file.getContentType());
-						
-						String photo = UploadHelper.saveImage(servletContext, file);
-						if (file.getOriginalFilename() != "") {
-							product.setImage(file.getOriginalFilename());
-						} else {
-							product.setImage("demo.png");
-						}
-						
-						productService.save(product);
-						return "redirect:/seller";
-					} catch (Exception e) {
-						System.out.println(e.getMessage());
-						System.out.println("Day la catch");
+					} else {
+						bindingResult.rejectValue("amount_time_id", "NotEmpty");
 					}
 				} else {
-					bindingResult.rejectValue("amount_time_id", "NotEmpty");
+					bindingResult.rejectValue("category", "NotEmpty");
 				}
-			} else {
-				bindingResult.rejectValue("category", "NotEmpty");
 			}
-			
 		}
-//		modelMap.put("product", product);
+		modelMap.put("product", product);
 		return "seller/addProduct";
 	}
 

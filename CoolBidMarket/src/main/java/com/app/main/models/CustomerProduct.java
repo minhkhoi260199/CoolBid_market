@@ -1,6 +1,9 @@
 package com.app.main.models;
 
 import java.io.Serializable;
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class CustomerProduct implements Serializable {
 	private Integer id;
@@ -13,6 +16,8 @@ public class CustomerProduct implements Serializable {
 	private Double gap;
 	private String productName;
 	private Integer amountTime;
+	@JsonFormat(timezone = "GMT+07:00")
+	private Date startTime;
 	public Integer getId() {
 		return id;
 	}
@@ -74,12 +79,19 @@ public class CustomerProduct implements Serializable {
 	public void setAmountTime(Integer amountTime) {
 		this.amountTime = amountTime;
 	}
+	
+	public Date getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
 	public CustomerProduct() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public CustomerProduct(Integer id, String categoryName, Integer status, String sellerName, String description,
-			String image, Double startPrice, Double gap, String productName, Integer amountTime) {
+			String image, Double startPrice, Double gap, String productName, Integer amountTime, Date startTime) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
@@ -91,7 +103,10 @@ public class CustomerProduct implements Serializable {
 		this.gap = gap;
 		this.productName = productName;
 		this.amountTime = amountTime;
+		this.startTime = startTime;
 	}
+	
+	
 	
 	
 }

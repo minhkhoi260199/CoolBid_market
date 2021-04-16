@@ -42,35 +42,35 @@ public class ProductRestController {
 	CategoryService categoryService;
 	@Autowired
 	AmountTimeService amountTimeService;
-	@RequestMapping(value="listProduct", method = RequestMethod.POST)
-	public ResponseEntity<?> getListProduct(Authentication authentication, @RequestParam("start") String startString, @RequestParam("length") String lengthString){
-		try {
-			int start = Integer.parseInt(startString);
-			int length = Integer.parseInt(lengthString);
-			List<CustomerProduct> productsReturn = null;
-			if (authentication.getName() != null) {
-				List<Product> products = (List<Product>) productService.findAllAvailableProduct();
-				for(Product product : products) {
-					CustomerProduct customerProduct = new CustomerProduct();
-					customerProduct.setProductName(product.getName());
-					customerProduct.setStatus(product.getStatus().getId());
-					customerProduct.setCategoryName(product.getCategory().getName());
-					customerProduct.setSellerName(product.getUsers().getName());
-					customerProduct.setImage(product.getImage());
-					customerProduct.setId(product.getId());
-					customerProduct.setDescription(product.getDescription());
-					customerProduct.setStartPrice(product.getStartPrice());
-					customerProduct.setGap(product.getGap());
-					customerProduct.setAmountTime(product.getAmountTime().getAmountTime());
-					productsReturn.add(customerProduct);
-				}
-				return new ResponseEntity<>(productsReturn, HttpStatus.OK);
-			}	
-			return new ResponseEntity<>(productsReturn, HttpStatus.OK);
-		} catch(Exception e) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-	}
+//	@RequestMapping(value="listProduct", method = RequestMethod.POST)
+//	public ResponseEntity<?> getListProduct(Authentication authentication, @RequestParam("start") String startString, @RequestParam("length") String lengthString){
+//		try {
+//			int start = Integer.parseInt(startString);
+//			int length = Integer.parseInt(lengthString);
+//			List<CustomerProduct> productsReturn = null;
+//			if (authentication.getName() != null) {
+//				List<Product> products = (List<Product>) productService.findAllAvailableProduct();
+//				for(Product product : products) {
+//					CustomerProduct customerProduct = new CustomerProduct();
+//					customerProduct.setProductName(product.getName());
+//					customerProduct.setStatus(product.getStatus().getId());
+//					customerProduct.setCategoryName(product.getCategory().getName());
+//					customerProduct.setSellerName(product.getUsers().getName());
+//					customerProduct.setImage(product.getImage());
+//					customerProduct.setId(product.getId());
+//					customerProduct.setDescription(product.getDescription());
+//					customerProduct.setStartPrice(product.getStartPrice());
+//					customerProduct.setGap(product.getGap());
+//					customerProduct.setAmountTime(product.getAmountTime().getAmountTime());
+//					productsReturn.add(customerProduct);
+//				}
+//				return new ResponseEntity<>(productsReturn, HttpStatus.OK);
+//			}	
+//			return new ResponseEntity<>(productsReturn, HttpStatus.OK);
+//		} catch(Exception e) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//	}
 	
 	@RequestMapping(value="create", method = RequestMethod.POST)
 	public ResponseEntity<?> createProduct(@Valid @RequestBody Product product, BindingResult bindingResult, Authentication authentication){

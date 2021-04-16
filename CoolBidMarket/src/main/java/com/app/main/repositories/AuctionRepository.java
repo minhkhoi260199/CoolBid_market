@@ -1,0 +1,21 @@
+package com.app.main.repositories;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import com.app.main.models.Auction;
+
+public interface AuctionRepository extends CrudRepository<Auction, Integer> {
+	@Query(nativeQuery = true, value = "select * from auction where product_id = :productId order by price DESC, time DESC limit :startRecord,10")
+	public List<Auction> getListAuctionByProductId(@Param("productId") int productId, @Param("startRecord") int startRecord);
+	
+	@Query("select count(id) from Auction where product_id = :product_id")
+	public Integer countTotalAuctionByProductId (@Param("product_id") int product_id);
+	
+	@Query("from Auction where price >= :auctionPrice and product_id = :product_id")
+	public List<Auction> getListAuctionByPrice(@Param("product_id") int product_id, @Param("auctionPrice") double auctionPrice);
+	
+}

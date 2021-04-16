@@ -51,14 +51,14 @@ public class AuthController {
 	}
 	
 	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public String proccessRegister(@ModelAttribute("user") @Valid Users user, BindingResult bindingResult, @RequestParam("role") int role, ModelMap modelMap) {
+	public String proccessRegister(@ModelAttribute("user") @Valid Users user, BindingResult bindingResult, ModelMap modelMap) {
 		usersValidator.validate(user, bindingResult);
 		if(!bindingResult.hasErrors()) {
 			String password = user.getPassword().trim();
 			String hash = new BCryptPasswordEncoder().encode(password);
 			user.setPassword(hash);
 			
-			Role roleObject = roleService.findRoleById(role);
+			Role roleObject = roleService.findRoleById(2);
 			user.setRole(roleObject);
 			user.setStatus(statusService.findById(7));
 			userService.save(user);

@@ -56,23 +56,68 @@
 	<script>
 		let start = 0;
 		let limit = 12;
-		function renderHtml(posItem){
+		function formatNumberToString(number, type){
+		    if (number == null) {
+		        number = 0;
+		    }
+		    if (type == 1) {
+		        number = number.toString();
+		        let num1 = parseFloat(number);
+		        return num1.toLocaleString("vi");
+		    } else if (type == 2) {
+		        number = Math.round((parseFloat(number) + Number.EPSILON) * 10) / 10;
+		        number = number.toString();
+		        let arrayNumber = number.split(".");
+		        let num1 = arrayNumber[0];
+		        let num2 = arrayNumber[1];
+		        num1 = parseFloat(num1).toLocaleString("en");
+		        if (num2 > 0) {
+		            num1 = num1 + "." + num2;
+		        }
+		        return num1;
+		    }
+		}
+
+		function convertSecondToHoursDuration(secondDuration) {
+			let hourDuration = 0;
+			hourDuration = secondDuration / 3600;
+			hourDuration = formatNumberToString(hourDuration, 2);
+			return hourDuration;
+		}
+				
+		function renderHtml(item, posItem){
 			let html = "";
+			let imageName = item.image ? item.image : "demo.png";
+			let productName = item.productName ? item.productName : "";
+			let startPrice = item.startPrice ? formatNumberToString(item.startPrice,2) : 0;
+			let gap = item.gap ? formatNumberToString(item.gap,2) : 0;
+			let statusId = item.status ? item.status : 4;
+			let status = "SOLD";
+
+			let id = item.id ? item.id : "";
+			let className = "badge badge-danger float-right mt-1";
+			if (statusId == 4) {
+				status = "ON AUCTION";
+				className = "badge badge-success float-right mt-1";
+			}
+
+			let seconDuration = item.amountTime ? item.amountTime : 0;
+			let hourDuration = convertSecondToHoursDuration(seconDuration);
 			html = `
 				<div class='col-md-3'>
-					<a href="${pageContext.request.contextPath }/auction">
+					<a href="${pageContext.request.contextPath }/auction?id=`+id+`">
 		            <div class='card'>
-		                <img class='card-img-top' src='${pageContext.request.contextPath }/resources/images/prd_img_3.jpg' alt='Card image cap'>
+		                <img style="width: 400px; height: 250px" class='card-img-top' src='${pageContext.request.contextPath }/uploads/images/`+imageName+`' alt='Card image cap'>
 		                <div class='card-body'>
-		                    <h4 class='card-title mb-3'>YOHE Motorcycle Helmet</h4>
-		                    <p class='card-text' style='font-weight: bolder;'>Current Price: 119$
+		                    <h4 class='card-title mb-3'>`+productName+`</h4>
+		                    <p class='card-text' style='font-weight: bolder;'>Start Price: `+startPrice+`$
 		                    </p>
-		                    <p class='card-text'>Min per bid: +1$
+		                    <p class='card-text'>Min per bid: + `+gap+`$
 		                    </p>
-		                    <p class='card-text'>Bidding for 24 hours
+		                    <p class='card-text'>Bidding for `+hourDuration+` hours
 		                    </p>
 		                    <small>
-		                        <span class='badge badge-danger float-right mt-1'>SOLD</span>
+		                        <span class='`+className+`'>`+status+`</span>
 		                    </small>
 		                </div>
 		            </div>
@@ -83,18 +128,18 @@
 
 		function getDataFromServer() {
 			$.ajax({
-				url: "${pageContext.request.contextPath }/api/product/listProduct?start="+start+"&length="+limit,
+				url: "${pageContext.request.contextPath }/api/customer/listAvailableProduct?start="+start+"&length="+limit,
 				method: "POST",
 				success: function(res) {
 					console.log(res);
-					return;
-					if (res.result) {
-						let products = res.products;
+		
+					if (res) {
+						let products = res;
 						let html = "";
-						for (let i = 0; i < products.list.length; i++) {
-							html += renderHtml(i)
+						for (let i = 0; i < products.length; i++) {
+							html += renderHtml(products[i],i);
 						}
-						$("#appendItem").html(html);
+						$("#itemList").html(html);
 					}
 				},
 				error: function(res) {

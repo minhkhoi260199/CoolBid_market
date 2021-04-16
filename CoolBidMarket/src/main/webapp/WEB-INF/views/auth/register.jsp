@@ -53,14 +53,6 @@
 										class="au-input au-input--full" type="phone" name="phone"
 										placeholder="Phone" path="phone"/>
                                 </div>
-                                <div class="form-group">
-                                	<label>Role</label>
-                                	<select name="role">
-										<c:forEach var="role" items="${roles }">
-											<option value="${role.id }">${role.name }</option>
-										</c:forEach>
-									</select>
-                                </div>
                                 <!-- <div class="login-checkbox">
                                     <label>
                                         <input type="checkbox" name="aggree">Agree the terms and policy
