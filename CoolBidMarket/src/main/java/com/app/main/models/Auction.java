@@ -13,11 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -33,17 +35,19 @@ public class Auction implements java.io.Serializable {
 	private Users users;
 	private Double price;
 	private Date time;
-	private Set<Invoice> invoices = new HashSet<Invoice>(0);
+//	private Set<Invoice> invoices = new HashSet<Invoice>(0);
 
+	private Invoice invoice;
+	
 	public Auction() {
 	}
 
-	public Auction(Product product, Users users, Double price, Date time, Set<Invoice> invoices) {
+	public Auction(Product product, Users users, Double price, Date time, Invoice invoice) {
 		this.product = product;
 		this.users = users;
 		this.price = price;
 		this.time = time;
-		this.invoices = invoices;
+		this.invoice = invoice;
 	}
 
 	@Id
@@ -99,13 +103,12 @@ public class Auction implements java.io.Serializable {
 		this.time = time;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "auction")
-	public Set<Invoice> getInvoices() {
-		return this.invoices;
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "auction")
+	public Invoice getInvoice() {
+		return this.invoice;
 	}
 
-	public void setInvoices(Set<Invoice> invoices) {
-		this.invoices = invoices;
+	public void setInvoice(Invoice invoice) {
+		this.invoice = invoice;
 	}
-
 }

@@ -95,64 +95,13 @@
                             </div>
                         </div>
                     </div>
+
+        <script src = "${pageContext.request.contextPath }/resources/js/common/common.js"></script>
 		<script>
 			$(".select2").select2({});
 			let id = ${id};
 
-			function formatStringToNumber(numberString, type){
-			    let num1 = 0;
-			    if (numberString == null) {
-			        numberString = 0;
-			    }
-			    if (type == 1) {
-			        //string là số nguyên
-			        num1 = numberString.replace(/\./g,"");
-			        
-			    } else if (type == 2) {
-			        //string là số thập phân nhưng dùng dấu .
-			        numberString = numberString.replace(/\./g,"");
-			        let arrayNumber = numberString.split(",");
-			        num1 = Number(arrayNumber[0]);
-			        if (arrayNumber[1] && arrayNumber[1] > 0 && arrayNumber[1] != "") {
-			            num1 = num1 + "." + arrayNumber[1];
-			        }
-			        num1 = Math.round((parseFloat(num1) + Number.EPSILON) * 10000) / 10000;
-			    }
-			    return isNaN(Number(num1)) ? 0 : Number(num1);
-			}
-						
-			function formatNumberToString(number, type){
-			    if (number == null) {
-			        number = 0;
-			    }
-			    if (type == 1) {
-			        number = number.toString();
-			        let num1 = parseFloat(number);
-			        return num1.toLocaleString("vi");
-			    } else if (type == 2) {
-			        number = Math.round((parseFloat(number) + Number.EPSILON) * 10) / 10;
-			        number = number.toString();
-			        let arrayNumber = number.split(".");
-			        let num1 = arrayNumber[0];
-			        let num2 = arrayNumber[1];
-			        num1 = parseFloat(num1).toLocaleString("en");
-			        if (num2 > 0) {
-			            num1 = num1 + "." + num2;
-			        }
-			        return num1;
-			    }
-			}
-
-			function formatDateSpecial(date, second) {
-				let a = moment(date).add(second, 'second').format("YYYY-MM-DD HH:mm:ss");
-				return a;
-			}
-
-			function formatDate(date) {
-				let a = moment(date).format("YYYY-MM-DD HH:mm:ss");
-				return a;
-			}
-
+		
 			function appendToTable(res) {
 				let html = "";
 				for(let i = 0; i < res.length; i++) {
@@ -233,7 +182,6 @@
 					success: function(res) {
 						console.log(res);
 						if (res != null && res.status) {
-							//"${pageContext.request.contextPath }/uploads/images/prd_img_4.jpg"
 							if (res.customerProducts != null) {
 								let customerProduct = res.customerProducts;
 								let imageName = customerProduct.image ? customerProduct.image : "demo.png";
@@ -250,10 +198,15 @@
 								$("#category_name").html(categoryName);
 								$("#seller_name").html(sellerName);
 								$("#descriptionProduct").html(description);
-								let defautStartTime = customerProduct.startTime;
-								let dateTime = formatDateSpecial(defautStartTime);
-								let second = customerProduct.amountTime ? customerProduct.amountTime : 0;
-								countDown(dateTime);
+
+								let dateTime = "";
+								let defautStartTime = "";
+								if (customerProduct.startTime) {
+									defautStartTime = customerProduct.startTime;
+									let second = customerProduct.amountTime ? customerProduct.amountTime : 0;
+									dateTime = formatDateSpecial(defautStartTime, second);
+								}
+								countDown(dateTime, defautStartTime);
 							}
 
 							if (res.auctionProducts != null) {
@@ -280,39 +233,46 @@
 
 			$(document).ready(function() {
 				getDataFromServer();
-				//getListAuction(1);
 			});
 			// Set the date we're counting down to
-			//var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
 
 			// Update the count down every 1 second
-			function countDown(dateTime) {
+			function countDown(dateTime, defautStartTime) {
 				var x = setInterval(function() {
+					
 					// Get today's date and time
 					var now = new Date().getTime();
 					var countDownDate = new Date(dateTime).getTime();
 
-					// Find the distance between now and the count down date
-					var distance = countDownDate - now;
+					var startTimeCheck = new Date(defautStartTime).getTime();
 
-					// Time calculations for days, hours, minutes and seconds
-					var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-					var hours = Math.floor((distance % (1000 * 60 * 60 * 24))
-							/ (1000 * 60 * 60));
-					var minutes = Math.floor((distance % (1000 * 60 * 60))
-							/ (1000 * 60));
-					var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-					// Display the result in the element with id="demo"
-					document.getElementById("demo").innerHTML = days + "d " + hours
-							+ "h " + minutes + "m " + seconds + "s ";
-
-					// If the count down is finished, write some text
-					if (distance < 0) {
-						clearInterval(x);
-						document.getElementById("demo").innerHTML = "EXPIRED";
+					if (dateTime != "" && defautStartTime != "" && now > startTimeCheck) {
+						// Find the distance between now and the count down date
+						var distance = countDownDate - now;
+	
+						// Time calculations for days, hours, minutes and seconds
+						var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+						var hours = Math.floor((distance % (1000 * 60 * 60 * 24))
+								/ (1000 * 60 * 60));
+						var minutes = Math.floor((distance % (1000 * 60 * 60))
+								/ (1000 * 60));
+						var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	
+						// Display the result in the element with id="demo"
+						document.getElementById("demo").innerHTML = days + "d " + hours
+								+ "h " + minutes + "m " + seconds + "s ";
+	
+						// If the count down is finished, write some text
+						if (distance < 0) {
+							clearInterval(x);
+							document.getElementById("demo").innerHTML = "EXPIRED";
+							$("#acceptBid").prop("disabled", true);
+							$("#statusProduct").html(`<span class="badge badge-danger float-right mt-1" id="" style="width: 100px; height: 30px;vertical-align: middle !important;text-align: center;padding-top: 9px !important;font-size: 12px;">SOLD</span>`);
+						}
+					} else {
+						document.getElementById("demo").innerHTML = "COMING SOON";
 						$("#acceptBid").prop("disabled", true);
-						$("#statusProduct").html(`<span class="badge badge-danger float-right mt-1" id="" style="width: 100px; height: 30px;vertical-align: middle !important;text-align: center;padding-top: 9px !important;font-size: 12px;">SOLD</span>`);
+						$("#statusProduct").html(`<span class="badge badge-success float-right mt-1" id="" style="width: 100px; height: 30px;vertical-align: middle !important;text-align: center;padding-top: 9px !important;font-size: 12px;">COMING SOON</span>`);
 					}
 				}, 1000);
 			}
@@ -331,11 +291,14 @@
 			
 			async function changePageFunction(editChangePage) {
 				let currentPageString = $("#paginationSelect").val();
-				let currentPage = formatStringToNumber(currentPageString, 2);
-				console.log(currentPageString);
+
+				let currentPage = 0;
+				if (currentPageString) {
+					currentPage = formatStringToNumber(currentPageString, 2);
+				}
+
 				if ( (currentPage > 1 && editChangePage == -1) || (currentPage < totalPage && editChangePage == 1) ) {
 					let changePage = currentPage + editChangePage;
-					//changePageFunction(changePage);
 					changePage = formatNumberToString(changePage, 2);
 					$("#paginationSelect").val(changePage).trigger("change").trigger("select2:select");
 				}
