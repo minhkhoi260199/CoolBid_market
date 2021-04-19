@@ -96,7 +96,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach var="invoice" items="${invoives }">
+                                    <c:forEach var="invoice" items="${invoices }">
                                         <tr class="tr-shadow">
                                             <td>
                                                 <label

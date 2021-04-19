@@ -18,7 +18,7 @@ public class AdminController {
 	@Autowired
 	private CategoryService categoryService;
 	@Autowired
-	private ProductService productservice;
+	private ProductService productService;
 	@Autowired
 	private InvoiceService invoiceService;
 	@Autowired
@@ -26,13 +26,16 @@ public class AdminController {
 	
 	@RequestMapping(value = {"", "index"} ,method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
-		modelMap.put("products", productservice.findAllAvailableProduct());
+		modelMap.put("products", productService.findAll());
+		System.out.println("product" + productService.findAll());
 		return "admin/index";
 	}
 	
 	@RequestMapping(value = {"invoice"} ,method = RequestMethod.GET)
 	public String invoice(ModelMap modelMap) {
+		modelMap.put("aa", "bbbbb");
 		modelMap.put("invoices", invoiceService.findAll());
+		System.out.println("aaa" + invoiceService.findAll());
 		return "admin/invoice";
 	}
 	
@@ -45,6 +48,7 @@ public class AdminController {
 	@RequestMapping(value = {"category"} ,method = RequestMethod.GET)
 	public String category(ModelMap modelMap) {
 		modelMap.put("categories", categoryService.findAll());
+		System.out.println("bbbb" + categoryService.findAll());
 		return "admin/category";
 	}
 }

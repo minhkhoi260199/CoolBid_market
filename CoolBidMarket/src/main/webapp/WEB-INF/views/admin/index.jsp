@@ -87,10 +87,10 @@
                                                 </label>
                                             </th>
                                             <th>product name</th>
-                                            <th>seller id</th>
-                                            <th>category id</th>
+                                            <th>seller</th>
+                                            <th>category</th>
                                             <th>start price</th>
-                                            <th>status name</th>
+                                            <th>status</th>
                                             <th></th>
                                         </tr>
                                     </thead>
