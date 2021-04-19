@@ -12,4 +12,8 @@ public interface ProductService {
 	public CustomerProduct findDetailById(int id);
 	
 	public Product findById(int id);
+	
+	public List<Product> findAllAvailableProductByDate(String dateTime);
+	
+	
 }

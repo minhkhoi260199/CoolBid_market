@@ -50,6 +50,12 @@ public class AuctionServiceImpl implements AuctionService {
 		// TODO Auto-generated method stub
 		return auctionRepository.getListAuctionByPrice(product_id, auctionPrice);
 	}
+
+	@Override
+	public Auction getLastPriceByProductId(int product_id) {
+		// TODO Auto-generated method stub
+		return auctionRepository.getLastPriceByProductId(product_id);
+	}
 	
 	
 }

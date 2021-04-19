@@ -74,4 +74,10 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findById(id).get();
 	}
 
+	@Override
+	public List<Product> findAllAvailableProductByDate(String dateTime) {
+		// TODO Auto-generated method stub
+		return productRepository.findAllAvailableProductByDate(dateTime);
+	}
+
 }

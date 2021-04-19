@@ -150,8 +150,8 @@
 						}			
 					}
 				});
-
-				getListAuction($("#paginationSelect").val())
+				let checkCurrentPage = $("#paginationSelect").val() ? $("#paginationSelect").val() : 1;
+				getListAuction(checkCurrentPage);
 			});
 
 			function getListAuction(numberPage) {
@@ -162,6 +162,9 @@
 						let selectedValue = $("#paginationSelect").val()
 						let totalRecord = res.totalRecord ? res.totalRecord : 0;
 						totalPage = Math.round(totalRecord / 10);
+						if (totalPage == 0) {
+							totalPage = 1;
+						}
 						let auctionProducts = res.auctionProducts;
 						appendToTable(auctionProducts);
 						let html = "";
@@ -199,6 +202,9 @@
 								$("#seller_name").html(sellerName);
 								$("#descriptionProduct").html(description);
 
+								let gap = customerProduct.gap ? formatNumberToString(customerProduct.gap, 2) : 0;
+								//Min per bid: +2$
+								$("#bidProduct").html("Min per bid: +" + gap + "$" );
 								let dateTime = "";
 								let defautStartTime = "";
 								if (customerProduct.startTime) {
@@ -215,7 +221,9 @@
 
 							let totalRecord = res.totalRecord ? res.totalRecord : 0;
 							totalPage = Math.round(totalRecord / 10);
-	
+							if (totalPage == 0) {
+								totalPage = 1;
+							}
 							let html = "";
 							for (let i = 1; i <= totalPage; i++) {
 								let iString = formatNumberToString(i, 2);

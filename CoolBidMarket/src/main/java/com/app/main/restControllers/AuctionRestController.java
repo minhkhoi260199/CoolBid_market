@@ -2,6 +2,7 @@ package com.app.main.restControllers;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +44,7 @@ public class AuctionRestController {
 	@RequestMapping(value="getDetail")
 	public ResponseEntity<?> getDetailItem(@RequestParam("id") String idString){
 		try {
+			TimeZone.setDefault(TimeZone.getTimeZone("GMT+7:00"));
 			int id = Integer.parseInt(idString);
 			CustomerProduct customerProduct = productService.findDetailById(id);
 			
@@ -96,32 +98,59 @@ public class AuctionRestController {
 	public ResponseEntity<?> bidSubmit(@RequestParam("bid_price") String bid_price_string, @RequestParam("product_id") String product_id_string, Authentication authentication) {
 		try {
 			ReturnListAuction returnListAuction = new ReturnListAuction();
+			TimeZone.setDefault(TimeZone.getTimeZone("GMT+7:00"));
 			
 			if (authentication != null && product_id_string != "" && bid_price_string != "") {	
 				double bid_price = Double.parseDouble(bid_price_string);
 				int product_id = Integer.parseInt(product_id_string);
 				
-				List<Auction> auList = auctionService.getListAuctionByPrice(product_id, bid_price);
-				if (auList.size() == 0) {
-					Product product = productService.findById(product_id);
-					String username = authentication.getName();
-					Users user = userService.findUserByUsername(username);
+				Product product = productService.findById(product_id);
+				double startProductPrice = product.getStartPrice();
+				double gapPrice= product.getGap();
+				double minPrice = startProductPrice + gapPrice;
+				if (product != null) {
+					TimeZone tz = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
+					Calendar startAuctionTime = Calendar.getInstance();
 					
-					TimeZone.setDefault(TimeZone.getTimeZone("GMT+7:00"));
+					startAuctionTime.setTimeZone(tz);
+					startAuctionTime.setTime(product.getStartTime());
+					
+					Calendar endAuctionTime = Calendar.getInstance();
+					endAuctionTime.setTimeZone(tz);
+					endAuctionTime.setTime(product.getStartTime());
+					endAuctionTime.add(Calendar.SECOND, product.getAmountTime().getAmountTime());
+					
 					Date current = new Date();
-	
-					Auction auction = new Auction();
-					auction.setUsers(user);
-					auction.setPrice(bid_price);
-					auction.setProduct(product);
-					auction.setTime(current);
-					auctionService.save(auction);
-					
-					List<AuctionProduct> auctionProducts = auctionService.getListAuction(product_id, 0);
-					
-					returnListAuction.setAuctionProducts(auctionProducts);
-					returnListAuction.setStatus(true);
-					return new ResponseEntity<>(returnListAuction, HttpStatus.OK);
+					if (startAuctionTime.getTime().compareTo(current) <= 0 && endAuctionTime.getTime().compareTo(current) >= 0) {
+						Auction oldAuction = auctionService.getLastPriceByProductId(product_id);
+						Double currentPrice = 0.0;
+						if (oldAuction != null) {
+							currentPrice = oldAuction.getPrice();
+						} else {
+							currentPrice = startProductPrice;
+						}
+						Double gapBetween = bid_price - currentPrice;
+
+						if (bid_price >= minPrice && gapBetween >= gapPrice) {
+							String username = authentication.getName();
+							Users user = userService.findUserByUsername(username);
+							
+		//					TimeZone.setDefault(TimeZone.getTimeZone("GMT+7:00"));
+							
+							Auction auction = new Auction();
+							auction.setUsers(user);
+							auction.setPrice(bid_price);
+							auction.setProduct(product);
+							auction.setTime(current);
+							auctionService.save(auction);
+							
+							List<AuctionProduct> auctionProducts = auctionService.getListAuction(product_id, 0);
+							
+							returnListAuction.setAuctionProducts(auctionProducts);
+							returnListAuction.setStatus(true);
+							return new ResponseEntity<>(returnListAuction, HttpStatus.OK);
+						}
+					}
 				}
 			}
 			returnListAuction.setAuctionProducts(null);

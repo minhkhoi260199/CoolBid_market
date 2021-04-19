@@ -11,6 +11,9 @@ import com.app.main.models.Product;
 
 @Repository("productRepository")
 public interface ProductRepository extends CrudRepository<Product, Integer> {
-	@Query(nativeQuery = true, value = "SELECT * from Product where status_id = 4 limit :start, :length")
+	@Query(nativeQuery = true, value = "SELECT * from product where status_id = 4 limit :start, :length")
 	public List<Product> findAllAvailableProduct(@Param("start") int start, @Param("length") int length);
+	
+	@Query(nativeQuery = true, value = "SELECT * from product where status_id = 4 and start_time <= :dateTime")
+	public List<Product> findAllAvailableProductByDate(@Param("dateTime") String dateTime);
 }

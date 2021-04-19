@@ -18,4 +18,7 @@ public interface AuctionRepository extends CrudRepository<Auction, Integer> {
 	@Query("from Auction where price >= :auctionPrice and product_id = :product_id")
 	public List<Auction> getListAuctionByPrice(@Param("product_id") int product_id, @Param("auctionPrice") double auctionPrice);
 	
+	@Query(nativeQuery = true, value = "select * from auction where product_id = :product_id order by price DESC limit 0,1")
+	public Auction getLastPriceByProductId(@Param("product_id") int product_id);
+	
 }

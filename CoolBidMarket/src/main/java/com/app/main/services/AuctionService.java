@@ -12,4 +12,6 @@ public interface AuctionService {
 	public Integer countTotalAuctionByProductId(int productId);
 	
 	public List<Auction> getListAuctionByPrice(int product_id, double auctionPrice);
+	
+	public Auction getLastPriceByProductId(int product_id);
 }

@@ -50,7 +50,7 @@ public class Product implements java.io.Serializable {
 	@Min(0)
 	@NotNull
 	private Double gap;
-//	@JsonFormat(timezone = "GMT+07:00")
+	@JsonFormat(timezone = "GMT+07:00")
 	private Date startTime;
 	private Set<Auction> auctions = new HashSet<Auction>(0);
 
