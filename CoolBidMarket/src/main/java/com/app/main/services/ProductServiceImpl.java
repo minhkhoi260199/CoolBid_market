@@ -84,8 +84,7 @@ public class ProductServiceImpl implements ProductService {
 	public Iterable<Product> findAll() {
 		// TODO Auto-generated method stub
 		return productRepository.findAll();
-	}
-	
+	}	
 	
 
 }

@@ -9,22 +9,23 @@ import com.app.main.repositories.InvoiceRepository;
 @Service("invoiceService")
 public class InvoiceServiceImpl implements InvoiceService {
 
+
 	@Autowired
-	InvoiceRepository invoiceServiceImpl;
+	InvoiceRepository invoiceRepository;
+	
 	@Override
 	public Invoice save(Invoice invoice) {
 		// TODO Auto-generated method stub
-		return invoiceServiceImpl.save(invoice);
+		return invoiceRepository.save(invoice);
 	}
-	@Autowired
-	InvoiceRepository invoiceRepository;
+	
 	@Override
 	public Iterable<Invoice> findAll() {
 		// TODO Auto-generated method stub
+				return invoiceRepository.findAll();
 	}
-		return invoiceRepository.findAll();
-	public Invoice findById(int id) {
 	@Override
+	public Invoice findById(int id) {
 		// TODO Auto-generated method stub
 		return invoiceRepository.findById(id).get();
 	}
