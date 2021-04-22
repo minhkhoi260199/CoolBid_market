@@ -80,4 +80,10 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findAllAvailableProductByDate(dateTime);
 	}
 
+	@Override
+	public Iterable<Product> findAll() {
+		// TODO Auto-generated method stub
+		return productRepository.findAll();
+	}	
+
 }
