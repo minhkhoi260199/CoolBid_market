@@ -16,6 +16,11 @@ public class InvoiceServiceImpl implements InvoiceService {
 		// TODO Auto-generated method stub
 		return invoiceServiceImpl.save(invoice);
 	}
+	@Override
+	public Invoice getInvoiceByProductId(int productId) {
+		// TODO Auto-generated method stub
+		return invoiceServiceImpl.getInvoiceByProductId(productId);
+	}
 
 	
 }

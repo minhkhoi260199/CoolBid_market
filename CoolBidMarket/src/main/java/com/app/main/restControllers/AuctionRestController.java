@@ -26,6 +26,7 @@ import com.app.main.models.ReturnListAuction;
 import com.app.main.models.Users;
 import com.app.main.services.AuctionService;
 import com.app.main.services.ProductService;
+import com.app.main.services.StatusService;
 import com.app.main.services.UserService;
 
 @RestController
@@ -40,6 +41,9 @@ public class AuctionRestController {
 	
 	@Autowired
 	AuctionService auctionService;
+	
+	@Autowired
+	StatusService statusService;
 	
 	@RequestMapping(value="getDetail")
 	public ResponseEntity<?> getDetailItem(@RequestParam("id") String idString){
@@ -142,6 +146,7 @@ public class AuctionRestController {
 							auction.setPrice(bid_price);
 							auction.setProduct(product);
 							auction.setTime(current);
+							auction.setStatus(statusService.findById(4));
 							auctionService.save(auction);
 							
 							List<AuctionProduct> auctionProducts = auctionService.getListAuction(product_id, 0);

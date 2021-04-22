@@ -22,16 +22,16 @@ public class Status implements java.io.Serializable {
 	private Integer id;
 	private String name;
 	private Set<Users> userses = new HashSet<Users>(0);
-	private Set<Invoice> invoices = new HashSet<Invoice>(0);
+	private Set<Auction> auctions = new HashSet<Auction>(0);
 	private Set<Product> products = new HashSet<Product>(0);
 
 	public Status() {
 	}
 
-	public Status(String name, Set<Users> userses, Set<Invoice> invoices, Set<Product> products) {
+	public Status(String name, Set<Users> userses, Set<Auction> auctions, Set<Product> products) {
 		this.name = name;
 		this.userses = userses;
-		this.invoices = invoices;
+		this.auctions = auctions;
 		this.products = products;
 	}
 
@@ -66,12 +66,12 @@ public class Status implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
-	public Set<Invoice> getInvoices() {
-		return this.invoices;
+	public Set<Auction> getAuctions() {
+		return this.auctions;
 	}
 
-	public void setInvoices(Set<Invoice> invoices) {
-		this.invoices = invoices;
+	public void setAuctions(Set<Auction> auctions) {
+		this.auctions = auctions;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
