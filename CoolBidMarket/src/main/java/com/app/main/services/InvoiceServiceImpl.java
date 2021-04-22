@@ -16,6 +16,16 @@ public class InvoiceServiceImpl implements InvoiceService {
 		// TODO Auto-generated method stub
 		return invoiceServiceImpl.save(invoice);
 	}
-
-	
+	@Autowired
+	InvoiceRepository invoiceRepository;
+	@Override
+	public Iterable<Invoice> findAll() {
+		// TODO Auto-generated method stub
+	}
+		return invoiceRepository.findAll();
+	public Invoice findById(int id) {
+	@Override
+		// TODO Auto-generated method stub
+		return invoiceRepository.findById(id).get();
+	}
 }
