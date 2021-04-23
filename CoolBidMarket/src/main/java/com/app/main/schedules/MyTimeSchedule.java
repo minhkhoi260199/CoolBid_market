@@ -12,12 +12,15 @@ import org.springframework.stereotype.Component;
 
 import com.app.main.models.Auction;
 import com.app.main.models.Invoice;
+import com.app.main.models.Notify;
 import com.app.main.models.Product;
 import com.app.main.models.Status;
 import com.app.main.services.AuctionService;
 import com.app.main.services.InvoiceService;
+import com.app.main.services.NotifyService;
 import com.app.main.services.ProductService;
 import com.app.main.services.StatusService;
+import com.app.main.services.UserService;
 
 @Component
 public class MyTimeSchedule {
@@ -25,22 +28,24 @@ public class MyTimeSchedule {
 	@Autowired
 	ProductService productService;
 	@Autowired
-	InvoiceService invoiceService;
-	@Autowired
 	StatusService statusService;
 	@Autowired
 	AuctionService auctionService;
+	@Autowired
+	UserService userService;
+	@Autowired
+	NotifyService notifyService;
+	
 	@Scheduled(fixedDelay = 30000)
 	public void taskAutoCompleteAuction() {
 		TimeZone.setDefault(TimeZone.getTimeZone("GMT+7:00"));
 		System.out.println("Task ran");
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateTime = simpleDateFormat.format(new Date());
-		System.out.println(dateTime);
 		List<Product> products = productService.findAllAvailableProductByDate(dateTime);
 		
 		for(Product product : products) {			
-			System.out.println(product.getName());
+			
 			TimeZone tz = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
 			Calendar startAuctionTime = Calendar.getInstance();
 			
@@ -52,18 +57,28 @@ public class MyTimeSchedule {
 			endAuctionTime.setTime(product.getStartTime());
 			endAuctionTime.add(Calendar.SECOND, product.getAmountTime().getAmountTime());
 			Date current = new Date();
-			System.out.println(startAuctionTime.getTime().compareTo(current) <= 0);
-			System.out.println(endAuctionTime.getTime().compareTo(current) <= 0);
 			if (startAuctionTime.getTime().compareTo(current) <= 0 && endAuctionTime.getTime().compareTo(current) <= 0) {
 				Status status = statusService.findById(5);
 				product.setStatus(status);
 				productService.save(product);
 				Auction auction = auctionService.getLastPriceByProductId(product.getId());
-				Invoice invoice = new Invoice();
-				invoice.setAuction(auction);
-				invoice.setStatus(statusService.findById(1));
-				invoice.setTime(new Date());
-				invoiceService.save(invoice);
+				Auction oldFinalAuction = auctionService.getAuctionByStatusAndProductId(product.getId(), 9);
+				if (auction != null && oldFinalAuction == null) {
+					auction.setStatus(statusService.findById(9));
+					String content = "The product " + product.getName() + " will be sold for " + String.valueOf(auction.getPrice()) + "$" ;
+					Notify notify = new Notify();
+					notify.setUsers(auction.getUsers());
+					notify.setContent(content);
+					notifyService.save(notify);
+					auctionService.save(auction);
+				} else if (auction != null && oldFinalAuction != null) {
+					auction.setStatus(statusService.findById(2));
+					auctionService.save(auction);
+				} else {
+					Status status1 = statusService.findById(2);
+					product.setStatus(status1);
+					productService.save(product);
+				}
 			}
 			
 		}

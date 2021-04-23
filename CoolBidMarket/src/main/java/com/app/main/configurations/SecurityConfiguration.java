@@ -18,12 +18,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		http.authorizeRequests()
 //			.antMatchers("/api/demo/**").access("hasRole('Shop')")
-			.antMatchers("/seller/addProduct").access("hasRole('ROLE_CUSTOMER') or hasRole('ROLE_ADMIN')")
+			.antMatchers("/seller/**").access("hasRole('ROLE_CUSTOMER') or hasRole('ROLE_ADMIN')")
 //			.antMatchers("/category/**").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE')")
 			.and()
 			.formLogin().loginPage("/auth/login?login")
 			.loginProcessingUrl("/auth/process-login")
-			.defaultSuccessUrl("/product/list")
+			.defaultSuccessUrl("/customer")
 			.failureUrl("/auth/login?error")
 			.usernameParameter("username")
 			.passwordParameter("password")
@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //			.logout().logoutUrl("/account/logout")
 //			.logoutSuccessUrl("/account/login?logout")
 			.and()
-			.exceptionHandling().accessDeniedPage("/seller")
+			.exceptionHandling().accessDeniedPage("/customer")
 		;
 		
 	}

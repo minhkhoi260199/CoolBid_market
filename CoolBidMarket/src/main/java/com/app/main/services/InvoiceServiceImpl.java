@@ -20,6 +20,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 	
 	@Override
+	public Invoice getInvoiceByProductId(int productId) {
+		// TODO Auto-generated method stub
+		return invoiceRepository.getInvoiceByProductId(productId);
+	}
+
+	@Override
 	public Iterable<Invoice> findAll() {
 		// TODO Auto-generated method stub
 				return invoiceRepository.findAll();
@@ -30,3 +36,4 @@ public class InvoiceServiceImpl implements InvoiceService {
 		return invoiceRepository.findById(id).get();
 	}
 }
+

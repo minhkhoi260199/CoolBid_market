@@ -20,7 +20,6 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
@@ -35,19 +34,17 @@ public class Auction implements java.io.Serializable {
 	private Users users;
 	private Double price;
 	private Date time;
-//	private Set<Invoice> invoices = new HashSet<Invoice>(0);
-
-	private Invoice invoice;
+	private Status status;
 	
 	public Auction() {
 	}
 
-	public Auction(Product product, Users users, Double price, Date time, Invoice invoice) {
+	public Auction(Product product, Status status, Users users, Double price, Date time) {
 		this.product = product;
+		this.status = status;
 		this.users = users;
 		this.price = price;
 		this.time = time;
-		this.invoice = invoice;
 	}
 
 	@Id
@@ -102,13 +99,15 @@ public class Auction implements java.io.Serializable {
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	@OneToOne(fetch = FetchType.LAZY, mappedBy = "auction")
-	public Invoice getInvoice() {
-		return this.invoice;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "status")
+	public Status getStatus() {
+		return this.status;
 	}
 
-	public void setInvoice(Invoice invoice) {
-		this.invoice = invoice;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
+
 }
