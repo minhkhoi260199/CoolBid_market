@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="tmp" tagdir="/WEB-INF/tags"%>
-<%@ taglib prefix="ctag" uri="http://customtags.cool" %>
+<%@ taglib prefix="ctag" uri="http://customtags.cool"%>
 <tmp:customerTemplate title="Cool Bid Market">
 	<jsp:attribute name="content">
-			<ctag:category/>
+			<ctag:category />
             <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
@@ -12,76 +12,28 @@
 
                     </div>
 
-                        <!--Pagination-->
-                        <ul class="pagination home-product__pagination">
-							<li class="pagination-item">
-								<a href="#" class="pagination-item__link">
-									<i class="pagination-item__icon fas fa-angle-left"></i>
-								</a>
-							</li>
-
-							<li class="pagination-item pagination-item--active">
-								<a href="#" class="pagination-item__link">1</a>
-							</li>
-							<li class="pagination-item">
-								<a href="#" class="pagination-item__link">2</a>
-							</li>
-							<li class="pagination-item">
-								<a href="#" class="pagination-item__link">3</a>
-							</li>
-							<li class="pagination-item">
-								<a href="#" class="pagination-item__link">4</a>
-							</li>
-							<li class="pagination-item">
-								<a href="#" class="pagination-item__link">5</a>
-							</li>
-							<li class="pagination-item">
-								<a href="#" class="pagination-item__link">...</a>
-							</li>
-							<li class="pagination-item">
-								<a href="#" class="pagination-item__link">14</a>
-							</li>
-
-							<li class="pagination-item">
-								<a href="#" class="pagination-item__link">
-									<i class="pagination-item__icon fas fa-angle-right"></i>
-								</a>
-							</li>
-						</ul>
-                        <!--END Pagination-->
+                     <div style="text-align: center; display: flex; justify-content: center">
+	                      <button type="button" id="previousButton" style="font-weight: bold; font-size: 25px; margin-right: 10px"> < </button>
+		                  <select style="width: 7%;" class="form-control select2" id="paginationSelect" name="paginationSelect" data-placeholder="Select Page" value="">
+		                    
+		                  </select>
+	                      <button type="button" id="nextButton" style="margin-left: 10px; font-weight: bold; font-size: 25px"> > </button>
+	                </div>
 
                 </div>
             </div>
             <!-- MAIN CONTENT-->
+    <script src = "${pageContext.request.contextPath }/resources/js/common/common.js"></script>
 	<script>
-		let start = 0;
+		let type = '${type}' != "specialCase" ? ${type} : 0;
 		let limit = 12;
-		function formatNumberToString(number, type){
-		    if (number == null) {
-		        number = 0;
-		    }
-		    if (type == 1) {
-		        number = number.toString();
-		        let num1 = parseFloat(number);
-		        return num1.toLocaleString("vi");
-		    } else if (type == 2) {
-		        number = Math.round((parseFloat(number) + Number.EPSILON) * 10) / 10;
-		        number = number.toString();
-		        let arrayNumber = number.split(".");
-		        let num1 = arrayNumber[0];
-		        let num2 = arrayNumber[1];
-		        num1 = parseFloat(num1).toLocaleString("en");
-		        if (num2 > 0) {
-		            num1 = num1 + "." + num2;
-		        }
-		        return num1;
-		    }
-		}
+		$(".select2").select2({});
+		let totalPage = 1;
 
 		function convertSecondToHoursDuration(secondDuration) {
 			let hourDuration = 0;
 			hourDuration = secondDuration / 3600;
-			hourDuration = formatNumberToString(hourDuration, 2);
+			hourDuration = formatNumberToString(hourDuration, 3);
 			return hourDuration;
 		}
 				
@@ -89,8 +41,8 @@
 			let html = "";
 			let imageName = item.image ? item.image : "demo.png";
 			let productName = item.productName ? item.productName : "";
-			let startPrice = item.startPrice ? formatNumberToString(item.startPrice,2) : 0;
-			let gap = item.gap ? formatNumberToString(item.gap,2) : 0;
+			let startPrice = item.startPrice ? formatNumberToString(item.startPrice,3) : 0;
+			let gap = item.gap ? formatNumberToString(item.gap,3) : 0;
 			let statusId = item.status ? item.status : 4;
 			let status = "SOLD";
 
@@ -126,38 +78,89 @@
 			return html;
 		}
 
-		function getDataFromServer() {
+		function getDataFromServer(page = 1) {
+			let keyword = $("#searchProductName").val();
+			let keywordParam = "";
+			if (keyword != "") {
+				keywordParam += "&keyword="+keyword;
+			}
 			$.ajax({
-				url: "${pageContext.request.contextPath }/api/customer/listAvailableProduct?start="+start+"&length="+limit,
+				url: "${pageContext.request.contextPath }/api/customer/listAvailableProduct?page="+page+"&length="+limit+keywordParam+"&type="+type,
 				method: "POST",
 				success: function(res) {
-					console.log(res);
-		
 					if (res) {
-						let products = res;
-						let html = "";
-						for (let i = 0; i < products.length; i++) {
-							html += renderHtml(products[i],i);
+						if (res.customerProducts) {
+							let products = res.customerProducts;
+							let html = "";
+							for (let i = 0; i < products.length; i++) {
+								html += renderHtml(products[i],i);
+							}
+							$("#itemList").html(html);
 						}
-						$("#itemList").html(html);
+						if (res.totalProducts) {
+							let totalRecord = res.totalProducts || 0;
+							totalPage = formatNumberToString(totalRecord / 12, 4);
+							console.log(totalPage, totalRecord / 12, formatNumberToString(totalRecord / 12, 4));
+							totalPage = formatStringToNumber(totalPage, 4);
+							if (totalRecord == 0) {
+								totalPage = 1;
+								console.log("1234");
+							}
+							console.log(totalRecord, totalPage);
+							if (totalRecord%12 != 0) {
+								totalPage = totalPage + 1;
+							}
+						}
 					}
+					let html = "";
+					for (let i = 1; i <= totalPage; i++) {
+						let iString = formatNumberToString(i, 4);
+						html += '<option value="'+iString+'">'+iString+'/'+totalPage+'</option>';
+					}
+					$("#paginationSelect").html(html);
+					$("#paginationSelect").val(page).trigger("change");
 				},
 				error: function(res) {
 
 				}
 			})
 		}
+
+		$("#previousButton").on("click", function() {
+			changePageFunction(-1);
+		})
 		
-		function getDataFromServer1() {
-			let html = "";
-			for (let i = 0; i < 12; i++) {
-				html += renderHtml(i);
+		$("#nextButton").on("click", function() {
+			changePageFunction(1);
+		})
+		
+		async function changePageFunction(editChangePage) {
+			let currentPageString = $("#paginationSelect").val();
+
+			let currentPage = 1;
+			if (currentPageString) {
+				currentPage = formatStringToNumber(currentPageString, 4);
 			}
-			$("#itemList").html(html);
+
+			if ( (currentPage > 1 && editChangePage == -1) || (currentPage < totalPage && editChangePage == 1) ) {
+				let changePage = currentPage + editChangePage;
+				changePage = formatNumberToString(changePage, 4);
+				$("#paginationSelect").val(changePage).trigger("change").trigger("select2:select");
+			}
 		}
+
+		$("#paginationSelect").on("select2:select", function() {
+			getDataFromServer($(this).val());
+		});
+		
 		$(document).ready(function() {
 			getDataFromServer();
 		})
+		
+		$("#searchButton").on("click", function() {
+			getDataFromServer(1);
+		});
+		
 	</script>
 	</jsp:attribute>
 </tmp:customerTemplate>

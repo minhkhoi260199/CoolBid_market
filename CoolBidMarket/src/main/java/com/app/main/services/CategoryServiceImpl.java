@@ -20,5 +20,10 @@ public class CategoryServiceImpl implements CategoryService {
 		// TODO Auto-generated method stub
 		return categoryRepository.findById(id).get();
 	}
+	@Override
+	public Iterable<Category> findAllWithLimit() {
+		// TODO Auto-generated method stub
+		return categoryRepository.findAllWithLimit();
+	}
 
 }

@@ -107,7 +107,7 @@
 				for(let i = 0; i < res.length; i++) {
 					let timeAuction = formatDate(res[i].auctionTime);
 					let fullName = res[i].fullName ? res[i].fullName : "";
-					let price = res[i].price ? formatNumberToString(res[i].price, 2) : 0;
+					let price = res[i].price ? formatNumberToString(res[i].price, 3) : 0;
 					html += `
 						<tr>
 							<td>`+timeAuction+`</td>
@@ -153,7 +153,7 @@
 				let checkCurrentPage = $("#paginationSelect").val() ? $("#paginationSelect").val() : 1;
 				getListAuction(checkCurrentPage);
 			});
-
+			var intervalAuctionTable = "";
 			function getListAuction(numberPage) {
 				$.ajax({
 					url: "${pageContext.request.contextPath}/api/auction/getAuctionList?id="+id+"&numberPage="+numberPage,
@@ -161,15 +161,20 @@
 					success: function(res) {
 						let selectedValue = $("#paginationSelect").val()
 						let totalRecord = res.totalRecord ? res.totalRecord : 0;
-						totalPage = Math.round(totalRecord / 10);
+						totalPage = formatNumberToString(totalRecord / 10, 4);
+						totalPage = formatStringToNumber(totalPage, 4);
 						if (totalPage == 0) {
 							totalPage = 1;
 						}
+						if (totalRecord%10 != 0) {
+							totalPage = totalPage + 1;
+						}
+						
 						let auctionProducts = res.auctionProducts;
 						appendToTable(auctionProducts);
 						let html = "";
 						for (let i = 1; i <= totalPage; i++) {
-							let iString = formatNumberToString(i, 2);
+							let iString = formatNumberToString(i, 4);
 							html += '<option value="'+iString+'">'+iString+'/'+totalPage+'</option>';
 						}
 						$("#paginationSelect").html(html);
@@ -183,7 +188,6 @@
 					url: "${pageContext.request.contextPath}/api/auction/getDetail?id="+id,
 					method: "GET",
 					success: function(res) {
-						console.log(res);
 						if (res != null && res.status) {
 							if (res.customerProducts != null) {
 								let customerProduct = res.customerProducts;
@@ -234,6 +238,9 @@
 								html += '<option value="'+iString+'" '+selected+'>'+iString+'/'+totalPage+'</option>';
 							}
 							$("#paginationSelect").html(html);
+							if (intervalAuctionTable == "") {
+								reloadAuctionTable();
+							}
 						}
 					}
 				})
@@ -242,6 +249,12 @@
 			$(document).ready(function() {
 				getDataFromServer();
 			});
+			
+			function reloadAuctionTable() {
+				intervalAuctionTable = setInterval(function() {
+					getListAuction($("#paginationSelect").val());
+				}, 5000)
+			}
 			// Set the date we're counting down to
 
 			// Update the count down every 1 second
@@ -294,20 +307,22 @@
 			})
 
 			$(document).on("select2:select", "#paginationSelect", function() {
+				clearInterval(intervalAuctionTable);
+				intervalAuctionTable = "";
 				getListAuction($(this).val())
 			});
 			
 			async function changePageFunction(editChangePage) {
 				let currentPageString = $("#paginationSelect").val();
 
-				let currentPage = 0;
+				let currentPage = 1;
 				if (currentPageString) {
-					currentPage = formatStringToNumber(currentPageString, 2);
+					currentPage = formatStringToNumber(currentPageString, 4);
 				}
 
 				if ( (currentPage > 1 && editChangePage == -1) || (currentPage < totalPage && editChangePage == 1) ) {
 					let changePage = currentPage + editChangePage;
-					changePage = formatNumberToString(changePage, 2);
+					changePage = formatNumberToString(changePage, 4);
 					$("#paginationSelect").val(changePage).trigger("change").trigger("select2:select");
 				}
 			}

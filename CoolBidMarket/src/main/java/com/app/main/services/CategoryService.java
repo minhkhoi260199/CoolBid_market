@@ -7,4 +7,5 @@ import com.app.main.models.Category;
 public interface CategoryService {
 	public Iterable<Category> findAll();
 	public Category findById(int id);
+	public Iterable<Category> findAllWithLimit();
 }
