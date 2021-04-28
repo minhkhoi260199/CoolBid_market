@@ -26,6 +26,7 @@ import com.app.main.models.Users;
 import com.app.main.services.AmountTimeService;
 import com.app.main.services.CategoryService;
 import com.app.main.services.ProductService;
+import com.app.main.services.RoleService;
 import com.app.main.services.StatusService;
 import com.app.main.services.UserService;
 
@@ -47,6 +48,8 @@ public class SellerController implements ServletContextAware {
 	
 	@Autowired
 	UserService userService;
+	@Autowired
+	RoleService roleService;
 	
 	@Override
 	public void setServletContext(ServletContext servletContext) {
@@ -56,12 +59,16 @@ public class SellerController implements ServletContextAware {
 	}
 	
 	@RequestMapping(value = {"", "index"} ,method = RequestMethod.GET)
-	public String index() {
+	public String index(ModelMap modelMap, Authentication authentication) {
+		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
+		modelMap.put("roles", roleService.findAll());
 		return "seller/index";
 	}
 	
 	@RequestMapping(value = {"invoices"} ,method = RequestMethod.GET)
-	public String index2() {
+	public String index2(ModelMap modelMap, Authentication authentication) {
+		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
+		modelMap.put("roles", roleService.findAll());
 		return "seller/invoices";
 	}
 	
