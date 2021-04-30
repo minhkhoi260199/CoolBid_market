@@ -24,11 +24,11 @@
                             </a>
                             <div class="header-button">
                                 <div class="noti-wrap">
-                                    <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-notifications"></i>
-                                        <span class="quantity">3</span>
+                                    <div class="noti__item js-item-menu" id="notificationCustom">
+                                        <i class="zmdi zmdi-notifications" id="bellNotificationHeader"></i>
+                                        <span class="quantity" id="quantityNotificationHeader">3</span>
                                         <div class="notifi-dropdown js-dropdown">
-                                            <div class="notifi__title">
+                                            <div class="notifi__title" id="titleQuantityNotificationHeader">
                                                 <p>You have 3 Notifications</p>
                                             </div>
                                             <div class="notifi__item">
