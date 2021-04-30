@@ -34,7 +34,6 @@ public class CustomerRestController {
 			try {
 				if (typeString != "") {
 					int type = Integer.parseInt(typeString);
-					System.out.println("Da vao day");
 					customerProducts = (List<CustomerProduct>) productService.findAllWithLimit(start, length, type, keywordFormat);
 					totalAvailableProduct = productService.countTotalAvailableProduct(type, keywordFormat);
 				} else {

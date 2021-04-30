@@ -67,10 +67,19 @@ public class MyTimeSchedule {
 					auction.setStatus(statusService.findById(9));
 					String content = "The product " + product.getName() + " will be sold for " + String.valueOf(auction.getPrice()) + "$" ;
 					Notify notify = new Notify();
-					notify.setUsers(auction.getUsers());
+					notify.setUsers(auction.getProduct().getUsers());
 					notify.setContent(content);
+					notify.setStatus(statusService.findById(10));
 					notifyService.save(notify);
 					auctionService.save(auction);
+					
+					String content1 = "You got the product " + product.getName() + " for " + String.valueOf(auction.getPrice()) + "$" ;
+					Notify notify1 = new Notify();
+					notify1.setUsers(auction.getUsers());
+					notify1.setContent(content1);
+					notify1.setStatus(statusService.findById(10));
+					notifyService.save(notify1);
+					
 				} else if (auction != null && oldFinalAuction != null) {
 					auction.setStatus(statusService.findById(2));
 					auctionService.save(auction);

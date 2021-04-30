@@ -1,5 +1,5 @@
 package com.app.main.models;
-// Generated Apr 3, 2021, 11:02:42 AM by Hibernate Tools 5.1.10.Final
+// Generated Apr 28, 2021, 9:51:48 PM by Hibernate Tools 5.1.10.Final
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,15 +23,17 @@ public class Status implements java.io.Serializable {
 	private String name;
 	private Set<Users> userses = new HashSet<Users>(0);
 	private Set<Auction> auctions = new HashSet<Auction>(0);
+	private Set<Notify> notifies = new HashSet<Notify>(0);
 	private Set<Product> products = new HashSet<Product>(0);
 
 	public Status() {
 	}
 
-	public Status(String name, Set<Users> userses, Set<Auction> auctions, Set<Product> products) {
+	public Status(String name, Set<Users> userses, Set<Auction> auctions, Set<Notify> notifies, Set<Product> products) {
 		this.name = name;
 		this.userses = userses;
 		this.auctions = auctions;
+		this.notifies = notifies;
 		this.products = products;
 	}
 
@@ -72,6 +74,15 @@ public class Status implements java.io.Serializable {
 
 	public void setAuctions(Set<Auction> auctions) {
 		this.auctions = auctions;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
+	public Set<Notify> getNotifies() {
+		return this.notifies;
+	}
+
+	public void setNotifies(Set<Notify> notifies) {
+		this.notifies = notifies;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "status")

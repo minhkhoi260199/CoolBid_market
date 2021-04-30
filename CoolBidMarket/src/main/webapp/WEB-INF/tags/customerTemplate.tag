@@ -72,13 +72,14 @@
                             </a>
                             <div class="header-button">
                                 <div class="noti-wrap">
-                                    <div class="noti__item js-item-menu">
-                                        <i class="zmdi zmdi-notifications"></i>
-                                        <span class="quantity">3</span>
+                                    <div class="noti__item js-item-menu" id="notificationCustom">
+                                        <i class="zmdi zmdi-notifications" id="bellNotificationHeader"></i>
+                                        <span class="quantity" id="quantityNotificationHeader">3</span>
                                         <div class="notifi-dropdown js-dropdown">
-                                            <div class="notifi__title">
+                                            <div class="notifi__title" id="titleQuantityNotificationHeader">
                                                 <p>You have 3 Notifications</p>
                                             </div>
+                                            <div class="" id="listNotificationHeader"></div>
                                             <div class="notifi__item">
                                                 <div class="bg-c1 img-cir img-40">
                                                     <i class="zmdi zmdi-email-open"></i>
@@ -175,7 +176,38 @@
     </section>
             <!-- END COPYRIGHT-->
 
+	<script>
+		function getTotalNotification() {
+			$.ajax({
+				url: "${pageContext.request.contextPath }/api/notify/totalNotify",
+				method: "GET",
+				success: function(res) {
+					if (res && res > 0) {
+						$("#quantityNotificationHeader").show();
+						$("#quantityNotificationHeader").html(res);
+					} else {
+						console.log("co vo ko");
+						$("#quantityNotificationHeader").hide();
+						$("#quantityNotificationHeader").html(0);
+					}
+					console.log(res);
+				}
+			});
+		}
 
+		function addingNotificationFunciton(idCustom) {
+			console.log("Opened: " + idCustom);
+			//if ()
+		}
+
+		function removeNotificationFunciton(idCustom) {
+			console.log("Closed: " + idCustom);
+		}
+		$(document).ready(function() {
+			getTotalNotification();
+		})
+		
+	</script>
     <!-- Jquery JS-->
 
     <!-- Bootstrap JS-->

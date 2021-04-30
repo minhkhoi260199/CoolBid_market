@@ -28,8 +28,10 @@ public class CustomerController {
 	public String index(ModelMap modelMap, @RequestParam(value = "type", required = false) String typeString, Authentication authentication) {
 		List<Category> categories = (List<Category>) categoryService.findAllWithLimit();
 		modelMap.put("categories", categories);
-		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
-		modelMap.put("roles", roleService.findAll());
+		if (authentication != null) {
+			modelMap.put("users", userService.findUserByUsername(authentication.getName()));
+			modelMap.put("roles", roleService.findAll());
+		}
 		try {
 			if (typeString != null && typeString != "") {
 				int type = Integer.parseInt(typeString);
