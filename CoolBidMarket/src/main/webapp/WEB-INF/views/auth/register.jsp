@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <tmp:authTemplate title="Register">
 	<jsp:attribute name="content">
-		 <div class="page-content--bge5">
+		 <div class="page-content">
             <div class="container">
                 <div class="login-wrap">
                     <div class="login-content">
@@ -66,7 +66,7 @@
                             <div class="register-link">
                                 <p>
                                     Already have account?
-                                    <a href="#">Sign In</a>
+                                    <a href="${pageContext.request.contextPath }/auth/login">Sign In</a>
                                 </p>
                             </div>
                         </div>

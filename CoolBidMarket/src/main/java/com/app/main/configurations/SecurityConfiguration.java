@@ -27,9 +27,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.failureUrl("/auth/login?error")
 			.usernameParameter("username")
 			.passwordParameter("password")
-//			.and()
-//			.logout().logoutUrl("/account/logout")
-//			.logoutSuccessUrl("/account/login?logout")
+			.and()
+			.logout()
+			.logoutSuccessUrl("/customer")
 			.and()
 			.exceptionHandling().accessDeniedPage("/customer")
 		;
