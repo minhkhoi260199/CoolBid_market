@@ -24,4 +24,22 @@
  	<body-content>empty</body-content>
  </tag>
  
+ <tag>
+ 	<name>indexHeader</name>
+ 	<tag-class>com.app.main.customTags.HeaderTag</tag-class>
+ 	<body-content>empty</body-content>
+ </tag>
+ 
+ <tag>
+ 	<name>customerHeader</name>
+ 	<tag-class>com.app.main.customTags.CustomerHeaderTag</tag-class>
+ 	<body-content>empty</body-content>
+ </tag>
+ 
+ <tag>
+ 	<name>nonSearchHeader</name>
+ 	<tag-class>com.app.main.customTags.NonSearchHeaderTag</tag-class>
+ 	<body-content>empty</body-content>
+ </tag>
+ 
 </taglib>

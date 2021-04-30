@@ -4,7 +4,7 @@
 <%@ taglib prefix="ctag" uri="http://customtags.cool"%>
 <tmp:customerTemplate title="Auction Detail">
 	<jsp:attribute name="content">
-	
+	<ctag:nonSearchHeader/>
 	<ctag:category />
 		            <div class="main-content">
                 		<div class="section__content section__content--p30">
