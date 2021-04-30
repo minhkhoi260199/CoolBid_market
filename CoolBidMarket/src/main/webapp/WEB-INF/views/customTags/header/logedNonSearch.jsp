@@ -13,15 +13,8 @@
 
 	<div class="section__content section__content--p30">
 		<div class="container-fluid">
-			<div class="header-wrap">
-				<form class="form-header" action="" method="POST">
-					<input class="au-input au-input--xl" type="text" name="search"
-						id="searchProductName"
-						placeholder="Search for datas &amp; reports..." />
-					<button class="au-btn--submit" type="button" id="searchButton">
-						<i class="zmdi zmdi-search"></i>
-					</button>
-				</form>
+			<div class="header-wrap" style="padding-left: 30em ">
+				
 				<a href="${pageContext.request.contextPath }/buyer">
 					<button type="button" class="btn btn-success btn-sm">
 						<i class="zmdi zmdi-shopping-cart"></i>&nbsp; Your Autions

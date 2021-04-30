@@ -9,7 +9,7 @@
 		            <div class="main-content">
                 		<div class="section__content section__content--p30">
 	                        <div class="row">
-	                            <div class="col-md-8">
+	                            <div class="col-lg-8">
 	                                <h2 class="title-1 m-b-25">Product</h2>
 	                                <div class="card">
 	                                    <div style="height: 20px;"></div>
