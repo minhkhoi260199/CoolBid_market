@@ -4,7 +4,7 @@
 <%@ taglib prefix="ctag" uri="http://customtags.cool"%>
 <tmp:customerTemplate title="Cool Bid Market">
 	<jsp:attribute name="content">
-			<ctag:indexHeader/>
+			<ctag:customerHeader/>
 			<ctag:category />
             <!-- MAIN CONTENT-->
             <div class="main-content">

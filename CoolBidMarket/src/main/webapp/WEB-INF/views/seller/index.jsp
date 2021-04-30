@@ -4,7 +4,7 @@
 <%@ taglib prefix="ctag" uri="http://customtags.cool"%>
 <tmp:customerTemplate title="Your shop">
 	<jsp:attribute name="content">
-			
+			<ctag:customerHeader/>
 			<ctag:sellerNav/>
             <div class="main-content">
                 <div class="section__content section__content--p30">

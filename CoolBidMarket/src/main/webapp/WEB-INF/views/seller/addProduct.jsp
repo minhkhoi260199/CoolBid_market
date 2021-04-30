@@ -3,9 +3,10 @@
 <%@ taglib prefix="tmp" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="ctag" uri="http://customtags.cool"%>
 <tmp:customerTemplate title="Sell product">
 	<jsp:attribute name="content">
-		
+		<ctag:nonSearchHeader/>
 		<div class="main-content" style="margin-top: 70px;">
 			<div class="section__content section__content--p30">
 				<div class="container-fluid">

@@ -28,10 +28,12 @@ public class CustomerController {
 	public String index(ModelMap modelMap, @RequestParam(value = "type", required = false) String typeString, Authentication authentication) {
 		List<Category> categories = (List<Category>) categoryService.findAllWithLimit();
 		modelMap.put("categories", categories);
-		if (authentication != null) {
+
+		if(authentication!=null) {
 			modelMap.put("users", userService.findUserByUsername(authentication.getName()));
-			modelMap.put("roles", roleService.findAll());
 		}
+		modelMap.put("roles", roleService.findAll());
+
 		try {
 			if (typeString != null && typeString != "") {
 				int type = Integer.parseInt(typeString);
@@ -44,7 +46,12 @@ public class CustomerController {
 			modelMap.put("type", "specialCase");
 		}
 		
-		return "customer/index";
+		if(authentication!=null) {
+			return "customer/customerIndex";
+		} else {
+			return "customer/index";
+		}
+		
 	}
 	
 	@RequestMapping(value = {"profile"} ,method = RequestMethod.GET)
