@@ -48,4 +48,10 @@ public class NotifyServiceImpl implements NotifyService {
 		return notifyRepository.getTotalNotify(user_id, status_id);
 	}
 
+	@Override
+	public Notify getNotifyById(int id) {
+		// TODO Auto-generated method stub
+		return notifyRepository.findById(id).get();
+	}
+
 }

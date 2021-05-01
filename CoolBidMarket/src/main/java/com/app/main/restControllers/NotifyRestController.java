@@ -22,6 +22,7 @@ import com.app.main.models.CustomAmountTime;
 import com.app.main.models.CustomCategory;
 import com.app.main.models.CustomNotify;
 import com.app.main.models.CustomerProduct;
+import com.app.main.models.Notify;
 import com.app.main.models.Product;
 import com.app.main.models.ReturnCategoryAmountTime;
 import com.app.main.models.ReturnListNotify;
@@ -31,6 +32,7 @@ import com.app.main.services.AmountTimeService;
 import com.app.main.services.CategoryService;
 import com.app.main.services.NotifyService;
 import com.app.main.services.ProductService;
+import com.app.main.services.StatusService;
 import com.app.main.services.UserService;
 
 @RestController
@@ -47,6 +49,8 @@ public class NotifyRestController {
 	AmountTimeService amountTimeService;
 	@Autowired
 	NotifyService notifyService;
+	@Autowired 
+	StatusService statusService;
 	
 	@RequestMapping(value="getNotify", method = RequestMethod.GET)
 	public ResponseEntity<?> getNotify(Authentication authentication){
@@ -78,6 +82,25 @@ public class NotifyRestController {
 			return new ResponseEntity<>(0, HttpStatus.OK);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value = "updateNofity", method=RequestMethod.GET)
+	public ResponseEntity<?> updateNofity(@RequestParam(value = "data", required = false) String data , Authentication authentication){
+		System.out.println(data);
+		try {
+			if (authentication != null && data != null) {
+				String[] intStrings = data.split("[,\s]+");
+				for(String intString : intStrings) {
+					int id = Integer.parseInt(intString);
+					Notify notify = notifyService.getNotifyById(id);
+					notify.setStatus(statusService.findById(11));
+					notifyService.save(notify);
+				}
+			}
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}

@@ -69,11 +69,16 @@
             <!-- END COPYRIGHT-->
 
 	<script>
-		function getTotalNotification() {
+		let intervalListHtml = "";
+		let intervalTotalNotification = "";
+		function getTotalNotification(checkStatus = 2) {
 			$.ajax({
 				url: "${pageContext.request.contextPath }/api/notify/totalNotify",
 				method: "GET",
 				success: function(res) {
+					if (checkStatus == 2) {
+						intervalGetTotalNotification();
+					}
 					if (res && res > 0) {
 						$("#quantityNotificationHeader").show();
 						$("#quantityNotificationHeader").html(res);
@@ -85,7 +90,7 @@
 			});
 		}
 
-		function getListNotification() {
+		function getListNotification(checkStatus = 2) {
 			$.ajax({
 				url: "${pageContext.request.contextPath }/api/notify/getNotify",
 				method: "GET",
@@ -95,8 +100,10 @@
 						let idString = "";
 						let htmlTitle = "";
 						let html = "";
-						html = $("#listNotification").html();
 						totalRecord.forEach(function(item, index) {
+							if (idString != "") {
+								idString += ",";
+							}
 							idString += item.notify_id;
 							let content = item.content;
 							html += `
@@ -110,33 +117,72 @@
 		                        </div>
 							`;
 						});
+						let htmlListNotification = $("#listNotification").html();
+						html = html + htmlListNotification;
 						htmlTitle = `<p>You have `+res.totalNotify+` Notifications</p>`;
 						$("#titleQuantityNotificationHeader").html(htmlTitle);
 						$("#quantityNotificationHeader").hide();
 						$("#quantityNotificationHeader").html(0);
 						$("#listNotification").html(html);
+
+						if (idString != "") {
+							sendtoUpdateNotifyStatus(idString);
+						}
+					}
+
+					if (checkStatus == 2) {
+						intervalGetListNotification();
+					}
+					
+					if (intervalTotalNotification != "") {
+						clearInterval(intervalTotalNotification);
+						intervalTotalNotification = "";
 					}
 				}
 			});
 		}
 
+		function sendtoUpdateNotifyStatus (idString) {
+			let paramData = "";
+			if (idString != "") {
+				paramData = "?data="+ idString;
+			}
+			$.ajax({
+				url: "${pageContext.request.contextPath }/api/notify/updateNofity" + paramData,
+				method: "GET",
+				success: function(res) {
+					
+				}
+			});
+		}
+
 		function addingNotificationFunciton(idCustom) {
-			console.log("Opened: " + idCustom);
-			//if ()
 			getListNotification();
 		}
 
 		function removeNotificationFunciton(idCustom) {
-			console.log("Closed: " + idCustom);
-			let htmlTitle = `<p>You have 0 Notifications</p>`;
-			$("#titleQuantityNotificationHeader").html(htmlTitle);
-			$("#quantityNotificationHeader").hide();
-			$("#quantityNotificationHeader").html(0);
 			$("#listNotification").html("");
+			getTotalNotification();
+			if (intervalListHtml != "") {
+				clearInterval(intervalListHtml);
+				intervalListHtml = "";
+			}
 		}
 		$(document).ready(function() {
 			getTotalNotification();
 		})
+		
+		function intervalGetListNotification() {
+			intervalListHtml = setInterval(function(){ 
+				getListNotification(1);
+			}, 5000);
+		}
+
+		function intervalGetTotalNotification() {
+			intervalTotalNotification = setInterval(function(){ 
+				getTotalNotification(1);
+			}, 5000);
+		}
 		
 	</script>
     <!-- Jquery JS-->
