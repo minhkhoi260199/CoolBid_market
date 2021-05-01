@@ -87,6 +87,13 @@ public class MyTimeSchedule {
 					Status status1 = statusService.findById(2);
 					product.setStatus(status1);
 					productService.save(product);
+					
+					String content = "The product " + product.getName() + " can't be sold" ;
+					Notify notify = new Notify();
+					notify.setUsers(product.getUsers());
+					notify.setContent(content);
+					notify.setStatus(statusService.findById(10));
+					notifyService.save(notify);
 				}
 			}
 			
