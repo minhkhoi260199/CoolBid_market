@@ -25,7 +25,6 @@
                                                 <th>End Time</th>
                                                 <th>Current price</th>
                                                 <th>Status</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
