@@ -26,11 +26,13 @@
                                                 <th>Current price</th>
                                                 <th>Your Price</th>
                                                 <th>Status</th>
+                                                <th>Goto Auction</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         <c:forEach var="product" items="${products }">
-                                            <tr class="tr-shadow">
+                                        	
+                                        	<tr class="tr-shadow">
                                                 <td>${product.id }</td>
                                                 <td>${product.name} </td>
                                                 <td>${product.category.name}</td>
@@ -38,7 +40,17 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td>${product.status.name }</td>
-                                               
+                                                <td>
+                                                <div class="table-data-feature">
+                                                <a href="${pageContext.request.contextPath }/auction?id=${product.id }">
+                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Detail">
+                                                        <i class="zmdi zmdi-mail-send"></i>
+                                                    </button>
+                                                </a>
+                                                </div>
+                                            </td>
+                                            </tr>
+                                            
                                             <tr class="spacer"></tr>
                                         </c:forEach>
                                         </tbody>

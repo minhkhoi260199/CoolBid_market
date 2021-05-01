@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="section__content section__content--p35"
-	style="margin-top: 50px; background-color: #666666; height: 50px;">
+	style="margin-top: 70px; background-color: #666666; height: 50px;">
 	<div class="header3-wrap">
 		<div class="header__logo"></div>
 		<div class="header__navbar">

@@ -42,7 +42,7 @@
 		                                                    <div class="col col-md-12">
 		                                                        <div class="input-group">
 		                                                            <div class="input-group-addon">
-		                                                                <i class="fa fa-euro"></i>
+		                                                                <i class="fa fa-usd"></i>
 		                                                            </div>
 		                                                            <input type="text" id="bid_price" name="bid_price" placeholder="..." class="form-control">
 		                                                        </div>
