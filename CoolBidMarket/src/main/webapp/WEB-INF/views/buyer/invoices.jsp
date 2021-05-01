@@ -24,6 +24,7 @@
 	                                            <th>Seller</th>
 	                                            <th>Price</th>
 	                                            <th>Time</th>
+	                                            <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>                                    
@@ -34,37 +35,7 @@
                                             <td>${invoice.users.name }</td>
                                             <td>${invoice.price }</td>   
                                             <td>${invoice.time }</td>	                                                            
-                                            <td>
-  												<div
-													class="table-data-feature">
-                                                        <button
-														class="item" data-toggle="tooltip" data-placement="top"
-														title="Send">
-														<a href="${pageContext.request.contextPath }/buyer/invoiceDetail/${invoice.id}" >
-                                                            <i
-															class="zmdi zmdi-mail-send"></i>
-														</a>
-                                                        </button>
-                                                        <button
-														class="item" data-toggle="tooltip" data-placement="top"
-														title="Edit">
-                                                            <i
-															class="zmdi zmdi-edit"></i>
-                                                        </button>
-                                                        <button
-														class="item" data-toggle="tooltip" data-placement="top"
-														title="Delete">
-                                                            <i
-															class="zmdi zmdi-delete"></i>
-                                                        </button>
-                                                        <button
-														class="item" data-toggle="tooltip" data-placement="top"
-														title="More">
-                                                            <i
-															class="zmdi zmdi-more"></i>
-                                                        </button>
-                                                  </div>
-                                            </td>
+                                            <td>${invoice.status.name }</td>
                                         </tr>
                                         <tr class="spacer"></tr>
                                         </c:forEach>

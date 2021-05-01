@@ -25,6 +25,7 @@
                                                 <th>End Time</th>
                                                 <th>Current price</th>
                                                 <th>Your Price</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -36,6 +37,7 @@
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
+                                                <td>${product.status.name }</td>
                                                
                                             <tr class="spacer"></tr>
                                         </c:forEach>
