@@ -1,7 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ attribute name="title" type="java.lang.String" required="true" rtexprvalue="true"%>
 <%@ attribute name="content" fragment="true" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,31 +42,26 @@
             <div class="section__content section__content--p35">
                 <div class="header3-wrap">
                     <div class="header__logo">
-                        <a href="${pageContext.request.contextPath }/admin">
+                        <a href="${pageContext.request.contextPath }/resources/#">
                             <img src="${pageContext.request.contextPath }/resources/images/icon/logo-white.png" alt="CoolAdmin" />
                         </a>
                     </div>
                     <div class="header__navbar">
                         <ul class="list-unstyled">
                             <li>
-                                <a href="${pageContext.request.contextPath }/admin">
+                                <a href="${pageContext.request.contextPath }/resources/#">
                                     <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>Update requests</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath }/admin/invoice">
+                                <a href="${pageContext.request.contextPath }/resources/table.html">
                                     <i class="fas fa-trophy"></i>
                                     <span class="bot-line"></span>Invoice manage</a>
                             </li>
                             <li>
-                                <a href="${pageContext.request.contextPath }/admin/category">
-                                    <i class="fas fa-list"></i>
+                                <a href="${pageContext.request.contextPath }/resources/#">
+                                    <i class="fas fa-shopping-basket"></i>
                                     <span class="bot-line"></span>Category manage</a>
-                            </li>
-                            <li>
-                                <a href="${pageContext.request.contextPath }/admin/customer">
-                                    <i class="fas fa-user"></i>
-                                    <span class="bot-line"></span>Customer manage</a>
                             </li>
                         </ul>
                     </div>
@@ -110,33 +104,82 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="header-button-item js-item-menu">
+                            <i class="zmdi zmdi-settings"></i>
+                            <div class="setting-dropdown js-dropdown">
+                                <div class="account-dropdown__body">
+                                    <div class="account-dropdown__item">
+                                        <a href="${pageContext.request.contextPath }/resources/#">
+                                            <i class="zmdi zmdi-account"></i>Account</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="${pageContext.request.contextPath }/resources/#">
+                                            <i class="zmdi zmdi-settings"></i>Setting</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="${pageContext.request.contextPath }/resources/#">
+                                            <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                    </div>
+                                </div>
+                                <div class="account-dropdown__body">
+                                    <div class="account-dropdown__item">
+                                        <a href="${pageContext.request.contextPath }/resources/#">
+                                            <i class="zmdi zmdi-globe"></i>Language</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="${pageContext.request.contextPath }/resources/#">
+                                            <i class="zmdi zmdi-pin"></i>Location</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="${pageContext.request.contextPath }/resources/#">
+                                            <i class="zmdi zmdi-email"></i>Email</a>
+                                    </div>
+                                    <div class="account-dropdown__item">
+                                        <a href="${pageContext.request.contextPath }/resources/#">
+                                            <i class="zmdi zmdi-notifications"></i>Notifications</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="account-wrap">
                             <div class="account-item account-item--style2 clearfix js-item-menu">
                                 <div class="image">
-                                    <img src="${pageContext.request.contextPath }/resources/images/icon/avatar-01.jpg" alt="Admin" />
+                                    <img src="${pageContext.request.contextPath }/resources/images/icon/avatar-01.jpg" alt="John Doe" />
                                 </div>
                                 <div class="content">
-                                    <a class="js-acc-btn" href="${pageContext.request.contextPath }/resources/#">Admin</a>
+                                    <a class="js-acc-btn" href="${pageContext.request.contextPath }/resources/#">john doe</a>
                                 </div>
                                 <div class="account-dropdown js-dropdown">
                                     <div class="info clearfix">
                                         <div class="image">
                                             <a href="${pageContext.request.contextPath }/resources/#">
-                                                <img src="${pageContext.request.contextPath }/resources/images/icon/avatar-01.jpg" alt="Admin" />
+                                                <img src="${pageContext.request.contextPath }/resources/images/icon/avatar-01.jpg" alt="John Doe" />
                                             </a>
                                         </div>
                                         <div class="content">
                                             <h5 class="name">
-                                                <a href="${pageContext.request.contextPath }/resources/#">Admin</a>
+                                                <a href="${pageContext.request.contextPath }/resources/#">john doe</a>
                                             </h5>
                                             <span class="email">johndoe@example.com</span>
                                         </div>
                                     </div>
-
+                                    <div class="account-dropdown__body">
+                                        <div class="account-dropdown__item">
+                                            <a href="${pageContext.request.contextPath }/resources/#">
+                                                <i class="zmdi zmdi-account"></i>Account</a>
+                                        </div>
+                                        <div class="account-dropdown__item">
+                                            <a href="${pageContext.request.contextPath }/resources/#">
+                                                <i class="zmdi zmdi-settings"></i>Setting</a>
+                                        </div>
+                                        <div class="account-dropdown__item">
+                                            <a href="${pageContext.request.contextPath }/resources/#">
+                                                <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                        </div>
+                                    </div>
                                     <div class="account-dropdown__footer">
-                                       <a href="<c:url value="/logout" />"> <i
-										class="zmdi zmdi-power"></i>Logout
-									</a>
+                                        <a href="${pageContext.request.contextPath }/resources/#">
+                                            <i class="zmdi zmdi-power"></i>Logout</a>
                                     </div>
                                 </div>
                             </div>
