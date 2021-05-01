@@ -32,12 +32,6 @@
 
     <!-- Main CSS-->
     <link href="${pageContext.request.contextPath }/resources/css/theme.css" rel="stylesheet" media="all">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.full.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 </head>
 
@@ -72,24 +66,44 @@
                         </ul>
                     </div>
                     <div class="header__tool">
-                       <div class="noti-wrap">
-						<div class="noti__item js-item-menu" id="notificationCustom">
-							<i class="zmdi zmdi-notifications" id="bellNotificationHeader"></i>
-							<span class="quantity" id="quantityNotificationHeader">3</span>
-							<div class="notifi-dropdown js-dropdown">
-								<div class="notifi__title" id="titleQuantityNotificationHeader" data-value="0">
-                                    <p>You have 0 Notifications</p>
+                        <div class="header-button-item has-noti js-item-menu">
+                            <i class="zmdi zmdi-notifications"></i>
+                            <div class="notifi-dropdown notifi-dropdown--no-bor js-dropdown">
+                                <div class="notifi__title">
+                                    <p>You have 3 Notifications</p>
                                 </div>
-                                <div class="listNotification" id="listNotification">
-	                               
+                                <div class="notifi__item">
+                                    <div class="bg-c1 img-cir img-40">
+                                        <i class="zmdi zmdi-email-open"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p>You got a email notification</p>
+                                        <span class="date">April 12, 2018 06:50</span>
+                                    </div>
                                 </div>
-								<div class="notifi__footer">
-									<a href="${pageContext.request.contextPath }/resources/#">All
-										notifications</a>
-								</div>
-							</div>
-						</div>
-					</div>
+                                <div class="notifi__item">
+                                    <div class="bg-c2 img-cir img-40">
+                                        <i class="zmdi zmdi-account-box"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p>Your account has been blocked</p>
+                                        <span class="date">April 12, 2018 06:50</span>
+                                    </div>
+                                </div>
+                                <div class="notifi__item">
+                                    <div class="bg-c3 img-cir img-40">
+                                        <i class="zmdi zmdi-file-text"></i>
+                                    </div>
+                                    <div class="content">
+                                        <p>You got a new file</p>
+                                        <span class="date">April 12, 2018 06:50</span>
+                                    </div>
+                                </div>
+                                <div class="notifi__footer">
+                                    <a href="${pageContext.request.contextPath }/resources/#">All notifications</a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="header-button-item js-item-menu">
                             <i class="zmdi zmdi-settings"></i>
                             <div class="setting-dropdown js-dropdown">
@@ -192,132 +206,12 @@
             <!-- END COPYRIGHT-->
 
     </div>
-    <script>
-    let intervalListHtml = "";
-	let intervalTotalNotification = "";
-	function getTotalNotification(checkStatus = 2) {
-		$.ajax({
-			url: "${pageContext.request.contextPath }/api/notify/totalNotify",
-			method: "GET",
-			success: function(res) {
-				if (checkStatus == 2) {
-					intervalGetTotalNotification();
-				}
-				if (res && res > 0) {
-					$("#quantityNotificationHeader").show();
-					$("#quantityNotificationHeader").html(res);
-				} else {
-					$("#quantityNotificationHeader").hide();
-					$("#quantityNotificationHeader").html(0);
-				}
-			}
-		});
-	}
 
-	function getListNotification(checkStatus = 2) {
-		$.ajax({
-			url: "${pageContext.request.contextPath }/api/notify/getNotify",
-			method: "GET",
-			success: function(res) {
-				if (res) {
-					let totalRecord = res.notifies;
-					let idString = "";
-					let htmlTitle = "";
-					let html = "";
-					totalRecord.forEach(function(item, index) {
-						if (idString != "") {
-							idString += ",";
-						}
-						idString += item.notify_id;
-						let content = item.content;
-						html += `
-                            <div class="notifi__item itemNotificationToCount">
-	                            <div class="bg-c3 img-cir img-40">
-	                                <i class="zmdi zmdi-file-text"></i>
-	                            </div>
-	                            <div class="content">
-	                                <p>`+content+`</p>
-	                            </div>
-	                        </div>
-						`;
-					});
-					let htmlListNotification = $("#listNotification").html();
-					html = html + htmlListNotification;
-
-					$("#quantityNotificationHeader").hide();
-					$("#quantityNotificationHeader").html(0);
-					$("#listNotification").html(html);
-
-					if (idString != "") {
-						sendtoUpdateNotifyStatus(idString);
-					}
-
-					let curretnTotalNotify = $(".itemNotificationToCount").length;
-					htmlTitle = `<p>You have `+ curretnTotalNotify +` Notifications</p>`;
-					$("#titleQuantityNotificationHeader").html(htmlTitle);
-				}
-
-				if (checkStatus == 2) {
-					intervalGetListNotification();
-				}
-				
-				if (intervalTotalNotification != "") {
-					clearInterval(intervalTotalNotification);
-					intervalTotalNotification = "";
-				}
-			}
-		});
-	}
-
-	function sendtoUpdateNotifyStatus (idString) {
-		let paramData = "";
-		if (idString != "") {
-			paramData = "?data="+ idString;
-		}
-		$.ajax({
-			url: "${pageContext.request.contextPath }/api/notify/updateNofity" + paramData,
-			method: "GET",
-			success: function(res) {
-				
-			}
-		});
-	}
-
-	function addingNotificationFunciton(idCustom) {
-		getListNotification();
-	}
-
-	function removeNotificationFunciton(idCustom) {
-		$("#listNotification").html("");
-		$("#titleQuantityNotificationHeader").attr("data-value", 0);
-		$("#titleQuantityNotificationHeader").html(`<p>You have 0 Notifications</p>`);
-		getTotalNotification();
-		if (intervalListHtml != "") {
-			clearInterval(intervalListHtml);
-			intervalListHtml = "";
-		}
-	}
-	$(document).ready(function() {
-		getTotalNotification();
-	})
-	
-	function intervalGetListNotification() {
-		intervalListHtml = setInterval(function(){ 
-			getListNotification(1);
-		}, 5000);
-	}
-
-	function intervalGetTotalNotification() {
-		intervalTotalNotification = setInterval(function(){ 
-			getTotalNotification(1);
-		}, 5000);
-	}
-    </script>
-
- 	<!-- Bootstrap JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
-    <!-- Latest compiled and minified JavaScript -->   
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!-- Jquery JS-->
+    <script src="${pageContext.request.contextPath }/resources/vendor/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="${pageContext.request.contextPath }/resources/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="${pageContext.request.contextPath }/resources/vendor/bootstrap-4.1/bootstrap.min.js"></script>
     <!-- Vendor JS       -->
     <script src="${pageContext.request.contextPath }/resources/vendor/slick/slick.min.js">
     </script>
