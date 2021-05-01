@@ -78,11 +78,44 @@
 						$("#quantityNotificationHeader").show();
 						$("#quantityNotificationHeader").html(res);
 					} else {
-						console.log("co vo ko");
 						$("#quantityNotificationHeader").hide();
 						$("#quantityNotificationHeader").html(0);
 					}
-					console.log(res);
+				}
+			});
+		}
+
+		function getListNotification() {
+			$.ajax({
+				url: "${pageContext.request.contextPath }/api/notify/getNotify",
+				method: "GET",
+				success: function(res) {
+					if (res) {
+						let totalRecord = res.notifies;
+						let idString = "";
+						let htmlTitle = "";
+						let html = "";
+						html = $("#listNotification").html();
+						totalRecord.forEach(function(item, index) {
+							idString += item.notify_id;
+							let content = item.content;
+							html += `
+                                <div class="notifi__item">
+		                            <div class="bg-c3 img-cir img-40">
+		                                <i class="zmdi zmdi-file-text"></i>
+		                            </div>
+		                            <div class="content">
+		                                <p>`+content+`</p>
+		                            </div>
+		                        </div>
+							`;
+						});
+						htmlTitle = `<p>You have `+res.totalNotify+` Notifications</p>`;
+						$("#titleQuantityNotificationHeader").html(htmlTitle);
+						$("#quantityNotificationHeader").hide();
+						$("#quantityNotificationHeader").html(0);
+						$("#listNotification").html(html);
+					}
 				}
 			});
 		}
@@ -90,10 +123,16 @@
 		function addingNotificationFunciton(idCustom) {
 			console.log("Opened: " + idCustom);
 			//if ()
+			getListNotification();
 		}
 
 		function removeNotificationFunciton(idCustom) {
 			console.log("Closed: " + idCustom);
+			let htmlTitle = `<p>You have 0 Notifications</p>`;
+			$("#titleQuantityNotificationHeader").html(htmlTitle);
+			$("#quantityNotificationHeader").hide();
+			$("#quantityNotificationHeader").html(0);
+			$("#listNotification").html("");
 		}
 		$(document).ready(function() {
 			getTotalNotification();

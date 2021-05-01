@@ -101,13 +101,10 @@
 						if (res.totalProducts) {
 							let totalRecord = res.totalProducts || 0;
 							totalPage = formatNumberToString(totalRecord / 12, 4);
-							console.log(totalPage, totalRecord / 12, formatNumberToString(totalRecord / 12, 4));
 							totalPage = formatStringToNumber(totalPage, 4);
 							if (totalRecord == 0) {
 								totalPage = 1;
-								console.log("1234");
 							}
-							console.log(totalRecord, totalPage);
 							if (totalRecord%12 != 0) {
 								totalPage = totalPage + 1;
 							}
