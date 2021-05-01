@@ -18,4 +18,6 @@ public interface AuctionService {
 	public Auction  getAuctionByStatusAndProductId(int product_id, int status);
 	
 	public List<Auction> getListAuctionWon();
+	
+	public List<Auction> getListAuctionGroupByProduct(int id);
 }
