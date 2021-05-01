@@ -1,5 +1,6 @@
 package com.app.main.controllers;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,15 @@ public class AuthController {
 	UsersValidator usersValidator;
 	@Autowired
 	StatusService statusService;
+	
+	@RequestMapping("/role")
+    public String defaultAfterLogin(HttpServletRequest request) {
+        if (request.isUserInRole("ROLE_ADMIN")) {
+            return "redirect:/admin/";
+        }
+        return "redirect:/customer/";
+    }
+	
 	@RequestMapping(value = "register", method = RequestMethod.GET)
 	public String register(ModelMap modelMap) {
 		modelMap.put("user", new Users());

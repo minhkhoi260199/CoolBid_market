@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
-                <div class="section__content section__content--p35" style="margin-top: 50px; background-color: #666666; height: 50px;">
+                <div class="section__content section__content--p35" style="margin-top: 70px; background-color: #666666; height: 50px;">
                     <div class="header3-wrap">
                         <div class="header__logo">
                         </div>
