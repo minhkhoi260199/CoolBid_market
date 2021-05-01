@@ -44,7 +44,7 @@
                             <div class="register-link">
                                 <p>
                                     Don't you have account?
-                                    <a href="#">Sign Up Here</a>
+                                    <a href="${pageContext.request.contextPath }/auth/register">Sign Up Here</a>
                                 </p>
                             </div>
                         </div>
