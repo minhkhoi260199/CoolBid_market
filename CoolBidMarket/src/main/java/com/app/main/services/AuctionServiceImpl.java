@@ -21,6 +21,12 @@ public class AuctionServiceImpl implements AuctionService {
 		// TODO Auto-generated method stub
 		return auctionRepository.save(auction);
 	}
+	
+	@Override
+	public List<Auction> getListAuctionGroupByProduct(int id) {
+		// TODO Auto-generated method stub
+		return auctionRepository.getAuctionByUserIDForProduct(id);
+	}
 
 	@Override
 	public List<AuctionProduct> getListAuction(int productId, int startRecord) {

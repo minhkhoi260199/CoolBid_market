@@ -40,9 +40,10 @@
                                         <tr>
                                             <th>Invoice id</th>
                                             <th>Product name</th>
+                                            <th>Seller</th>
                                             <th>Price</th>
                                             <th>Date</th>
-                                            <th>Buyer id</th>
+                                            <th>Buyer</th>
                                             <th>Status</th>
                                             <th></th>
                                         </tr>
@@ -51,22 +52,23 @@
                                     <c:forEach var="invoice" items="${invoices }">
                                         <tr class="tr-shadow">
                                             <td>${invoice.id }</td>
-                                            <td>${invoice.auction.product.name }</td>
-                                            <td>${invoice.auction.price }</td>
+                                            <td>${invoice.product.name }</td>
+                                            <td>${invoice.product.users.name }</td>
+                                            <td>${invoice.price }</td>
                                             <td>${invoice.time }</td>
-                                            <td>${invoice.auction.users.name }</td>
+                                            <td>${invoice.users.name }</td>
                                             <td>
-                                                <span class="status--process">${invoice.status }</span>
+                                                <span class="status--process">${invoice.status.name }</span>
                                             </td>                             
                                             <td>
-                                                <div
+                                                <!--  div
 													class="table-data-feature">
                                                     <button class="item"
 														data-toggle="tooltip" data-placement="top" title="Delete">
                                                         <i
 															class="zmdi zmdi-delete"></i>
                                                     </button>
-                                                </div>
+                                                </div -->
                                             </td>
                                         </tr>
                                         <tr class="spacer"></tr>

@@ -6,6 +6,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.app.main.services.AuctionService;
 import com.app.main.services.CategoryService;
 import com.app.main.services.InvoiceService;
 import com.app.main.services.ProductService;
@@ -20,7 +21,7 @@ public class AdminController {
 	@Autowired
 	private ProductService productService;
 	@Autowired
-	private InvoiceService invoiceService;
+	private AuctionService auctionService;
 	@Autowired
 	private UserService userService;
 	
@@ -34,8 +35,7 @@ public class AdminController {
 	@RequestMapping(value = {"invoice"} ,method = RequestMethod.GET)
 	public String invoice(ModelMap modelMap) {
 		modelMap.put("aa", "bbbbb");
-		modelMap.put("invoices", invoiceService.findAll());
-		System.out.println("aaa" + invoiceService.findAll());
+		modelMap.put("invoices", auctionService.getListAuctionWon());
 		return "admin/invoice";
 	}
 	
@@ -48,7 +48,6 @@ public class AdminController {
 	@RequestMapping(value = {"category"} ,method = RequestMethod.GET)
 	public String category(ModelMap modelMap) {
 		modelMap.put("categories", categoryService.findAll());
-		System.out.println("bbbb" + categoryService.findAll());
 		return "admin/category";
 	}
 }

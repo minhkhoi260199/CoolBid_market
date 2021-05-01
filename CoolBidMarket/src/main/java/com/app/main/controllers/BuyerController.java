@@ -42,9 +42,18 @@ public class BuyerController {
 	@RequestMapping(value = {"", "index"} ,method = RequestMethod.GET)
 	public String index(ModelMap modelMap, HttpServletRequest request, Authentication authentication) {
 		PayPalResult result = PayPalSucess.getPayPal(request, payPalService.getPayPalConfig());
-		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
+		Users users = userService.findUserByUsername(authentication.getName());
+		modelMap.put("users", users);
 		modelMap.put("roles", roleService.findAll());
-		modelMap.put("products", productService.findAll());
+		
+		List<Auction> auctions = auctionService.getListAuctionGroupByProduct(users.getId());
+		List<Product> products = new ArrayList<Product>();
+		
+		for (Auction auction : auctions) {
+			products.add(auction.getProduct());
+		}
+		modelMap.put("products", products);
+		
 		System.out.println("Welcome: " +authentication.getName());
 		return "buyer/index";
 	}
