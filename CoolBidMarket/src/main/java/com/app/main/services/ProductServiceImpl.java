@@ -82,6 +82,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public List<Product> findProductByUserID(int id) {
+		// TODO Auto-generated method stub
+		return productRepository.findProductByUserId(id);
+	}
+
+	@Override
 	public Iterable<Product> findAll() {
 		// TODO Auto-generated method stub
 		return productRepository.findAll();

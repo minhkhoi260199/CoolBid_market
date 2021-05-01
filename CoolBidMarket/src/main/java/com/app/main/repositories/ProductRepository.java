@@ -17,6 +17,9 @@ public interface ProductRepository extends CrudRepository<Product, Integer> {
 	@Query(nativeQuery = true, value = "SELECT * from product where status_id = 4 and start_time <= :dateTime")
 	public List<Product> findAllAvailableProductByDate(@Param("dateTime") String dateTime);
 	
+	@Query(nativeQuery = true, value = "SELECT * from product where seller_id = :user")
+	public List<Product> findProductByUserId(@Param("user") int id);
+	
 	@Query("SELECT count(id) from Product where status = 4")
 	public Integer countTotalAvailableProduct();
 	

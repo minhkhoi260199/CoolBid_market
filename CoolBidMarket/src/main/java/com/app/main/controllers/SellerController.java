@@ -20,10 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.main.helpers.UploadHelper;
 import com.app.main.models.AmountTime;
+import com.app.main.models.Auction;
 import com.app.main.models.Category;
 import com.app.main.models.Product;
 import com.app.main.models.Users;
 import com.app.main.services.AmountTimeService;
+import com.app.main.services.AuctionService;
 import com.app.main.services.CategoryService;
 import com.app.main.services.ProductService;
 import com.app.main.services.RoleService;
@@ -45,7 +47,8 @@ public class SellerController implements ServletContextAware {
 	AmountTimeService amountTimeService;
 	@Autowired
 	StatusService statusService;
-	
+	@Autowired
+	AuctionService auctionService;
 	@Autowired
 	UserService userService;
 	@Autowired
@@ -60,15 +63,31 @@ public class SellerController implements ServletContextAware {
 	
 	@RequestMapping(value = {"", "index"} ,method = RequestMethod.GET)
 	public String index(ModelMap modelMap, Authentication authentication) {
-		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
+		Users users = userService.findUserByUsername(authentication.getName());
+		modelMap.put("users", users );
 		modelMap.put("roles", roleService.findAll());
+		modelMap.put("products", productService.findProductByUserID(users.getId()));
 		return "seller/index";
 	}
 	
 	@RequestMapping(value = {"invoices"} ,method = RequestMethod.GET)
 	public String index2(ModelMap modelMap, Authentication authentication) {
-		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
+		Users users = userService.findUserByUsername(authentication.getName());
+		modelMap.put("users", users);
 		modelMap.put("roles", roleService.findAll());
+		List<Auction> auctionsWon = auctionService.getListAuctionWon();
+		List<Auction> auctions = new ArrayList<Auction>();
+		
+		for (Auction auction : auctionsWon) {
+			if ( auction.getProduct().getUsers().getId() == users.getId()) {
+					System.out.println("auction buyer: " + auction.getUsers().getId());
+					System.out.println(" Login user: " + users.getId());
+					auctions.add(auction);
+			}
+		}
+		
+		modelMap.put("invoices", auctions);
+		
 		return "seller/invoices";
 	}
 	

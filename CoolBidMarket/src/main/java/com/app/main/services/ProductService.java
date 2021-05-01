@@ -25,5 +25,6 @@ public interface ProductService {
 	
 	public List<CustomerProduct> findAllWithLimit(int start, int length, int category_id, String product_name);
 	
+	public List<Product> findProductByUserID(int id);
 	
 }
