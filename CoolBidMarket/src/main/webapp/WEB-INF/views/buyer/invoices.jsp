@@ -3,7 +3,7 @@
 <%@ taglib prefix="tmp" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="ctag" uri="http://customtags.cool"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<tmp:customerTemplate title="Invoice Detail">
+<tmp:customerTemplate title="Your Invoices">
 	<jsp:attribute name="content">
 			<ctag:customerHeader/>
 			<ctag:buyerNav />
@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
-                                <h3 class="title-5 m-b-35">data table</h3>
+                                <h3 class="title-5 m-b-35">Your Invoices</h3>
                                 <div class="table-data__tool">
                                     <div class="table-data__tool-left">
                                         <div
