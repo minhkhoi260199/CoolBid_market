@@ -163,11 +163,13 @@
 						let totalRecord = res.totalRecord ? res.totalRecord : 0;
 						totalPage = formatNumberToString(totalRecord / 10, 4);
 						totalPage = formatStringToNumber(totalPage, 4);
-						if (totalPage == 0) {
-							totalPage = 1;
-						}
+
 						if (totalRecord%10 != 0) {
 							totalPage = totalPage + 1;
+						}
+
+						if (totalPage == 0) {
+							totalPage = 1;
 						}
 						
 						let auctionProducts = res.auctionProducts;
@@ -224,7 +226,14 @@
 							}
 
 							let totalRecord = res.totalRecord ? res.totalRecord : 0;
-							totalPage = Math.round(totalRecord / 10);
+
+							totalPage = formatNumberToString(totalRecord / 10, 4);
+							totalPage = formatStringToNumber(totalPage, 4);
+
+							if (totalRecord%10 != 0) {
+								totalPage = totalPage + 1;
+							}
+							
 							if (totalPage == 0) {
 								totalPage = 1;
 							}
