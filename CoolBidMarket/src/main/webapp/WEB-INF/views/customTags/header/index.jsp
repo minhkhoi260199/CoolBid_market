@@ -3,7 +3,7 @@
 <header class="header-desktop">
 	<aside class="menu-sidebar d-none d-lg-block">
 		<div class="logo">
-			<a href="${pageContext.request.contextPath }"> <img
+			<a href="${pageContext.request.contextPath }/customer"> <img
 				src="${pageContext.request.contextPath }/resources/images/icon/logo-market.png"
 				alt="Cool Market" />
 			</a>
