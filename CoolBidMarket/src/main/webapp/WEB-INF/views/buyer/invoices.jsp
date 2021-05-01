@@ -73,15 +73,16 @@
 													class="au-checkmark"></span>
                                                     </label>
                                                 </th>
-                                                <th>product name</th>
-	                                            <th>seller</th>
-	                                            <th>category</th>
-	                                            <th>price</th>
+                                                <th>Invoice ID</th>
+	                                            <th>Product</th>
+	                                            <th>Seller</th>
+	                                            <th>Price</th>
+	                                            <th>Time</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>                                    
-										<c:forEach var="product" items="${products }">
+										<c:forEach var="invoice" items="${invoices }">
                                         <tr class="tr-shadow">
                                             <td>
                                                 <label
@@ -92,17 +93,18 @@
 													class="au-checkmark"></span>
                                                 </label>
                                             </td>
-                                            <td>${product.name }</td>
-                                            <td>${product.users.username }</td>
-                                            <td>${product.category.name }</td>
-                                            <td>${product.gap }</td>   	                                                            
+                                            <td>${invoice.id }</td>
+                                            <td>${invoice.product.name }</td>
+                                            <td>${invoice.users.name }</td>
+                                            <td>${invoice.price }</td>   
+                                            <td>${invoice.time }</td>	                                                            
                                             <td>
   												<div
 													class="table-data-feature">
                                                         <button
 														class="item" data-toggle="tooltip" data-placement="top"
 														title="Send">
-														<a href="${pageContext.request.contextPath }/buyer/invoiceDetail/${product.id}" >
+														<a href="${pageContext.request.contextPath }/buyer/invoiceDetail/${invoice.id}" >
                                                             <i
 															class="zmdi zmdi-mail-send"></i>
 														</a>

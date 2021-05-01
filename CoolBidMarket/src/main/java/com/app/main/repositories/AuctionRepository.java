@@ -23,4 +23,7 @@ public interface AuctionRepository extends CrudRepository<Auction, Integer> {
 	
 	@Query(nativeQuery = true, value = "select * from auction where product_id = :product_id and status = :status")
 	public Auction getAuctionByStatusAndProductId(@Param("product_id") int product_id, @Param("status") int status);
+	
+	@Query(nativeQuery = true, value = "select * from auction where status = 9")
+	public List<Auction> getAuctionWon();
 }
