@@ -33,18 +33,11 @@
 							<i class="zmdi zmdi-notifications" id="bellNotificationHeader"></i>
 							<span class="quantity" id="quantityNotificationHeader">3</span>
 							<div class="notifi-dropdown js-dropdown">
-								<div class="notifi__title" id="titleQuantityNotificationHeader">
+								<div class="notifi__title" id="titleQuantityNotificationHeader" data-value="0">
                                     <p>You have 0 Notifications</p>
                                 </div>
                                 <div class="listNotification" id="listNotification">
-	                                <div class="notifi__item">
-						                 <div class="bg-c3 img-cir img-40">
-						                      <i class="zmdi zmdi-file-text"></i>
-						                 </div>
-						                 <div class="content">
-						                       <p>Day la content test</p>
-						                  </div>
-						             </div>
+	                               
                                 </div>
 								<div class="notifi__footer">
 									<a href="${pageContext.request.contextPath }/resources/#">All

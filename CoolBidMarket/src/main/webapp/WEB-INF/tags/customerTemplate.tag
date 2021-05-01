@@ -107,7 +107,7 @@
 							idString += item.notify_id;
 							let content = item.content;
 							html += `
-                                <div class="notifi__item">
+                                <div class="notifi__item itemNotificationToCount">
 		                            <div class="bg-c3 img-cir img-40">
 		                                <i class="zmdi zmdi-file-text"></i>
 		                            </div>
@@ -119,8 +119,7 @@
 						});
 						let htmlListNotification = $("#listNotification").html();
 						html = html + htmlListNotification;
-						htmlTitle = `<p>You have `+res.totalNotify+` Notifications</p>`;
-						$("#titleQuantityNotificationHeader").html(htmlTitle);
+	
 						$("#quantityNotificationHeader").hide();
 						$("#quantityNotificationHeader").html(0);
 						$("#listNotification").html(html);
@@ -128,6 +127,10 @@
 						if (idString != "") {
 							sendtoUpdateNotifyStatus(idString);
 						}
+
+						let curretnTotalNotify = $(".itemNotificationToCount").length;
+						htmlTitle = `<p>You have `+ curretnTotalNotify +` Notifications</p>`;
+						$("#titleQuantityNotificationHeader").html(htmlTitle);
 					}
 
 					if (checkStatus == 2) {
@@ -162,6 +165,8 @@
 
 		function removeNotificationFunciton(idCustom) {
 			$("#listNotification").html("");
+			$("#titleQuantityNotificationHeader").attr("data-value", 0);
+			$("#titleQuantityNotificationHeader").html(`<p>You have 0 Notifications</p>`);
 			getTotalNotification();
 			if (intervalListHtml != "") {
 				clearInterval(intervalListHtml);
