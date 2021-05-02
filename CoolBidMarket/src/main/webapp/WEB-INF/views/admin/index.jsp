@@ -74,7 +74,7 @@
 	                                            </c:if>
                                             </td>      
                                             <td>
-                                            	<a href="${pageContext.request.contextPath }/auction?id=${invoice.product.id }">
+                                            	<a href="${pageContext.request.contextPath }/auction?id=${product.id }">
                                             	<button class="btn btn-warning btn-sm" ">
 				                                     <!--i class="fa fa-dot-circle-o"></i--> Detail...
 				                                </button>

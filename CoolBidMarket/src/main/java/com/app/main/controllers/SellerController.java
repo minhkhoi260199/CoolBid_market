@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,6 +90,13 @@ public class SellerController implements ServletContextAware {
 		modelMap.put("invoices", auctions);
 		
 		return "seller/invoices";
+	}
+	
+	@RequestMapping(value = {"invoiceDetail"} ,method = RequestMethod.GET)
+	public String invoiceDetail(ModelMap modelMap, Authentication authentication) {
+		
+		modelMap.put("auction", "Infomation");
+		return "seller/invoiceDetail";
 	}
 	
 	@RequestMapping(value = {"addProduct"} ,method = RequestMethod.GET)
