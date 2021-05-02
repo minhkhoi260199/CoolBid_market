@@ -2,6 +2,7 @@ package com.app.main.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,6 +73,12 @@ public class AuctionServiceImpl implements AuctionService {
 	@Override
 	public List<Auction> getListAuctionWon() {
 		return auctionRepository.getAuctionWon();
+	}
+
+	@Override
+	public Auction getProductId(int id) {
+		// TODO Auto-generated method stub
+		return auctionRepository.findById(id).get();
 	}
 	
 	

@@ -29,23 +29,23 @@
 											<label class=" form-control-label">ID:</label>
 										</div>
 										<div class="col-12 col-md-9">
-											<p class="form-control-static">${product.id}</p>
+											<p class="form-control-static">${auction.id }</p>
 										</div>
 										<div class="col col-md-3">
 											<label class=" form-control-label">Product name:</label>
 										</div>
 										<div class="col-12 col-md-9">
-											<p class="form-control-static">${product.name}</p>
+											<p class="form-control-static">${auction.product.name }</p>
 										</div>
 										<div class="col col-md-3">
 											<label class=" form-control-label">Price:</label>
 										</div>
 										<div class="col-12 col-md-9">
-											<p class="form-control-static">${product.gap }</p>
+											<p class="form-control-static">${auction.price }</p>
 										</div>
 										<div>										
-											<input type="hidden" name="item_number_${i.index + 1 }" value="${product.id }">
-											<input type="hidden" name="item_name_${i.index + 1 }" value="${product.name }">
+											<input type="hidden" name="item_number_${i.index + 1 }" value="${auction.id }">
+											<input type="hidden" name="item_name_${i.index + 1 }" value="${auction.product.name }">
 											<input type="hidden" name="quantity_${i.index + 1 }" value="1">
 											<input type="hidden" name="amount_${i.index + 1 }" value="${auction.price }">
 										</div>
@@ -58,6 +58,7 @@
 								</form>
 							</div>
 						</div>
+					</div>
 				</div>
 				<div class="row"></div>
 			</div>

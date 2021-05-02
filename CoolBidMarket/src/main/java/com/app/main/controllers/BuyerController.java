@@ -80,10 +80,9 @@ public class BuyerController {
 	}
 	@RequestMapping(value = {"invoiceDetail/{id}"} ,method = RequestMethod.GET)
 	public String invoiceDetail(@PathVariable("id") int id,ModelMap modelMap, Authentication authentication) {
-		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
-		modelMap.put("roles", roleService.findAll());
-		Product product = productService.findById(id);
-		modelMap.put("product", product);
+		Auction auction = auctionService.getProductId(id);
+		modelMap.put("auction", auction);
+		
 		modelMap.put("paypalConfig", payPalService.getPayPalConfig());
 		return "buyer/invoiceDetail";
 	}

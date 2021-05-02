@@ -20,4 +20,6 @@ public interface AuctionService {
 	public List<Auction> getListAuctionWon();
 	
 	public List<Auction> getListAuctionGroupByProduct(int id);
+	
+	public Auction getProductId(int id);
 }
