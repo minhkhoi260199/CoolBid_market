@@ -28,8 +28,8 @@
                                                 <th>Product ID</th>
                                                 <th>Product Name</th>
                                                 <th>Category</th>
-                                                <th>End Time</th>
-                                                <th>Current price</th>
+                                                <th>On bidding time</th>
+                                                <th>Start price</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -39,9 +39,9 @@
                                                 <td>${product.id }</td>
                                                 <td>${product.name} </td>
                                                 <td>${product.category.name}</td>
-                                                <td></td>
+                                                <td>${product.amountTime.amountTime / 60 }&nbsp&nbsp Minute</td>
+                                                <td>${product.startPrice }</td>
                                                 <td>${product.status.name }</td>
-                                                <td></td>
                                                
                                             <tr class="spacer"></tr>
                                         </c:forEach>
