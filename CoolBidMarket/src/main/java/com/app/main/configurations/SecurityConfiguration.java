@@ -17,10 +17,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.cors().and().csrf().disable();
 		
 		http.authorizeRequests()
-//			.antMatchers("/api/demo/**").access("hasRole('Shop')")
 			.antMatchers("/seller/**").access("hasRole('ROLE_CUSTOMER') or hasRole('ROLE_ADMIN')")
 			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-//			.antMatchers("/category/**").access("hasRole('ROLE_SUPER_ADMIN') or hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE')")
 			.and()
 			.formLogin().loginPage("/auth/login?login")
 			.loginProcessingUrl("/auth/process-login")

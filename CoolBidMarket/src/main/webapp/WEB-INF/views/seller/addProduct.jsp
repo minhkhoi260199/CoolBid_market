@@ -94,7 +94,7 @@
 									<button type="submit" class="btn btn-primary btn-sm" id="submitButton">
 										<i class="fa fa-dot-circle-o"></i> Submit
 									</button>
-									<button type="reset" class="btn btn-danger btn-sm">
+									<button type="button" class="btn btn-danger btn-sm" id="resetButton">
 										<i class="fa fa-ban"></i> Reset
 									</button>
 								</div>
@@ -142,6 +142,18 @@
 				$("#submitButton").on("click", function() {
 					$("#formAddProduct").submit();
 				})
+
+				$("#resetButton").on("click", function() {
+					$("#name").val("");
+					$("#description").val("");
+					$("#startPrice").val("");
+					$("#text").val("");
+					$("#startPrice").val("");
+					$("#gap").val("");
+					$("#amount_time_id").val(1).trigger("change");
+					$("#category").val(1).trigger("change");
+					$("#file").val("");
+				});
 
 			})
 		</script>
