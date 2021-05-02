@@ -72,7 +72,7 @@ public class CustomerController {
 		return "customer/accountUpdate";
 	}
 	@RequestMapping(value = {"profile"} ,method = RequestMethod.POST )
-	public String index2(@ModelAttribute("users") Users users, ModelMap modelMap, Authentication authentication, @PathVariable int id) {			
+	public String index2(@ModelAttribute("users") Users users, ModelMap modelMap, Authentication authentication) {			
 		try {
 			Role roles = roleService.findRoleById(2);								
 			modelMap.put("roles", roles);			

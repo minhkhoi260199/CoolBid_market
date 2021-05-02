@@ -18,6 +18,7 @@
 							<div class="card-body card-block">
 								<s:form action="${pageContext.request.contextPath }/customer/profile" method="post" enctype="multipart/form-data"
 											class="form-horizontal" modelAttribute="users">
+									<s:hidden path="id" name="id" id="id"/>
 									<div class="row form-group">
 										<div class="col col-md-3">
 											<label class=" form-control-label">Username :</label>
