@@ -165,7 +165,9 @@
 					method: "POST",
 					success: function(res) {
 						let statusId = `#statusColumn_`+product_id;
+						let buttonId = `#buttonColumn_`+product_id;
 						$(statusId).html(`<div style="color:red" >Denied</div>`);
+						$(buttonId).html("");
 					}
 				})
 			}

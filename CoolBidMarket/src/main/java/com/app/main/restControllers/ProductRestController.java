@@ -1,5 +1,6 @@
 package com.app.main.restControllers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,12 +24,14 @@ import com.app.main.models.Category;
 import com.app.main.models.CustomAmountTime;
 import com.app.main.models.CustomCategory;
 import com.app.main.models.CustomerProduct;
+import com.app.main.models.Notify;
 import com.app.main.models.Product;
 import com.app.main.models.ReturnCategoryAmountTime;
 import com.app.main.models.ReturnProductObject;
 import com.app.main.models.Users;
 import com.app.main.services.AmountTimeService;
 import com.app.main.services.CategoryService;
+import com.app.main.services.NotifyService;
 import com.app.main.services.ProductService;
 import com.app.main.services.StatusService;
 import com.app.main.services.UserService;
@@ -47,6 +50,8 @@ public class ProductRestController {
 	AmountTimeService amountTimeService;
 	@Autowired 
 	StatusService statusService;
+	@Autowired
+	NotifyService notifyService;
 	
 	@RequestMapping(value="approve", method = RequestMethod.POST)
 	public ResponseEntity<?> approveProduct(Authentication authentication, @RequestParam("product_id") String product_id_string){
@@ -58,6 +63,43 @@ public class ProductRestController {
 			product.setStatus(statusService.findById(4));
 			product.setStartTime(current);
 			productService.save(product);
+			
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			String content = "Your product has been approved at " + simpleDateFormat.format(current);
+			Notify notify = new Notify();
+			notify.setContent(content);
+			notify.setUsers(userService.findUserById(product.getUsers().getId()));
+			notify.setStatus(statusService.findById(10));
+			notifyService.save(notify);
+			
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value="reject", method = RequestMethod.POST)
+	public ResponseEntity<?> rejectProduct(Authentication authentication, @RequestParam("product_id") String product_id_string){
+		try {
+			int product_id = Integer.parseInt(product_id_string);
+			Product product = productService.findById(product_id);
+			product.setStatus(statusService.findById(2));
+			productService.save(product);
+			
+			TimeZone.setDefault(TimeZone.getTimeZone("GMT+7:00"));
+			Date current = new Date();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			
+			String content = "Your product has been rejected at " + simpleDateFormat.format(current);
+			Notify notify = new Notify();
+			notify.setContent(content);
+			notify.setUsers(userService.findUserById(product.getUsers().getId()));
+			notify.setStatus(statusService.findById(10));
+			notifyService.save(notify);
+			
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
