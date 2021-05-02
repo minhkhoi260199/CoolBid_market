@@ -45,7 +45,7 @@
                                             <th>Date</th>
                                             <th>Buyer</th>
                                             <th>Status</th>
-                                            <th></th>
+                                            <th>Detail</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -61,6 +61,11 @@
                                                 <span class="status--process">${invoice.status.name }</span>
                                             </td>                             
                                             <td>
+                                            <!--a href="${pageContext.request.contextPath }/auction?id=${invoice.product.id }"-->
+                                            	<button class="btn btn-warning btn-sm" ">
+				                                     <!--i class="fa fa-dot-circle-o"></i--> Detail...
+				                                </button>
+				                            <!-- /a-->    
                                                 <!--  div
 													class="table-data-feature">
                                                     <button class="item"

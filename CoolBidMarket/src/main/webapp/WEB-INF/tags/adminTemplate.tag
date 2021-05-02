@@ -58,7 +58,7 @@
                             <li>
                                 <a href="${pageContext.request.contextPath }/admin">
                                     <i class="fas fa-shopping-basket"></i>
-                                    <span class="bot-line"></span>Update requests</a>
+                                    <span class="bot-line"></span>Product manage</a>
                             </li>
                             <li>
                                 <a href="${pageContext.request.contextPath }/admin/invoice">

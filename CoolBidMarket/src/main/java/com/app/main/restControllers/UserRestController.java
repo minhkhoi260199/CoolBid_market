@@ -1,13 +1,16 @@
 package com.app.main.restControllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.main.validators.UsersValidator;
+import com.app.main.models.Product;
 import com.app.main.models.ReturnUserObject;
 import com.app.main.models.Role;
 import com.app.main.models.Users;
@@ -72,6 +76,36 @@ public class UserRestController {
 			return new ResponseEntity<List<Role>>(roles, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(roles, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value="ban", method = RequestMethod.POST)
+	public ResponseEntity<?> banUser(Authentication authentication, @RequestParam("user_id") String user_id_string){
+		try {
+			int id = Integer.parseInt(user_id_string);
+			Users user = userService.findUserById(id);
+			user.setStatus(statusService.findById(8));
+			userService.save(user);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value="unBan", method = RequestMethod.POST)
+	public ResponseEntity<?> unBanUser(Authentication authentication, @RequestParam("user_id") String user_id_string){
+		try {
+			int id = Integer.parseInt(user_id_string);
+			Users user = userService.findUserById(id);
+			user.setStatus(statusService.findById(7));
+			userService.save(user);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 }

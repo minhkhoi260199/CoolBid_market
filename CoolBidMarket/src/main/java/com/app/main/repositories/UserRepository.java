@@ -15,6 +15,6 @@ public interface UserRepository extends CrudRepository<Users, Integer> {
 	@Query("from Users where username = :username")
 	public Users findUserByUsername(@Param("username") String username);
 	
-	@Query("from Users where role_id != 0")
+	@Query("from Users where role_id = 2")
 	public List<Users> findAll();
 }

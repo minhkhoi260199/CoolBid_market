@@ -44,6 +44,7 @@
                                             <th>Category</th>
                                             <th>Start price</th>
                                             <th>Status</th>
+                                            <th>Detail</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -72,7 +73,13 @@
 	                                            	<div style="color:blue" >${product.status.name }</div>
 	                                            </c:if>
                                             </td>      
-                                            
+                                            <td>
+                                            	<a href="${pageContext.request.contextPath }/auction?id=${invoice.product.id }">
+                                            	<button class="btn btn-warning btn-sm" ">
+				                                     <!--i class="fa fa-dot-circle-o"></i--> Detail...
+				                                </button>
+				                                </a>
+                                            </td>
                                                            
                                             <td id="buttonColumn_${product.id }">
 	                                            <c:if test="${product.status.id == 1 }">

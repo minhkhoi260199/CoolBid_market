@@ -45,6 +45,7 @@
                                             <th>Phone</th>
                                             <th>Address</th>
                                             <th>Email</th>
+                                            <th>Status</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -58,16 +59,27 @@
                                             <td>${user.address }</td>
                                             <td>
                                                 <span class="block-email">${user.email }</span>
-                                            </td>                             
-                                            <td>
-                                                <div
-													class="table-data-feature">
-			                                        <button class="btn btn-success btn-sm">
-			                                        	<i class="fa fa-dot-circle-o"></i> Ban
-			                                        </button>
-			                                        <button class="btn btn-danger btn-sm">
-			                                            <i class="fa fa-ban"></i> Unban
-			                                        </button>
+                                            </td>
+                                            <td id="statusCol_${user.id }">
+                                            	<c:if test="${user.status.id == 7 }">
+	                                            	<div style="color:green" >${user.status.name }</div>
+	                                            </c:if>
+	                                            <c:if test="${user.status.id == 8 }">
+	                                            	<div style="color:red" >${user.status.name }</div>
+	                                            </c:if>
+                                            </td>
+                                            <td id="optionCol_${user.id }">
+                                                <div class="table-data-feature">
+	                                                <c:if test="${user.status.id == 7 }">
+				                                        <button class="btn btn-danger btn-sm" onClick="banFunction(${user.id })">
+				                                        	<i class="fa fa-ban" style="margin-right: 15px"></i> Ban
+				                                        </button>		                                           
+		                                            </c:if>
+		                                            <c:if test="${user.status.id == 8 }">
+				                                        <button class="btn btn-success btn-sm" onClick="unBanFunction(${user.id })">
+				                                            <i class="fa fa-dot-circle-o"></i> Unban
+				                                        </button>
+			                                        </c:if>
                                                 </div>
                                             </td>
                                         </tr>
@@ -118,6 +130,36 @@
 				</li>
 			</ul>
             <!--END Pagination-->
+	<script>
+		function banFunction(users_id) {
+			if (users_id != "") {
+				$.ajax({
+					url: "${pageContext.request.contextPath }/api/user/ban?user_id="+users_id,
+					method: "POST",
+					success: function(res) {
+						let statusId = `#statusCol_`+users_id;
+						let optionId = `#optionCol_`+users_id;
+						$(optionId).html(``);
+						$(statusId).html(`<div style="color:red" >Banned</div>`);
+					}
+				})
+			}
+		}
 
+		function unBanFunction(users_id) {
+			if (users_id != "") {
+				$.ajax({
+					url: "${pageContext.request.contextPath }/api/user/unBan?user_id="+users_id,
+					method: "POST",
+					success: function(res) {
+						let statusId = `#statusCol_`+users_id;
+						let optionId = `#optionCol_`+users_id;
+						$(optionId).html(``);
+						$(statusId).html(`<div style="color:green" >Activated</div>`);
+					}
+				})
+			}
+		}
+	</script>
 	</jsp:attribute>
 </tmp:adminTemplate>
