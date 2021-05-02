@@ -22,9 +22,7 @@
                                                 <th>Product ID</th>
                                                 <th>Product Name</th>
                                                 <th>Category</th>
-                                                <th>End Time</th>
-                                                <th>Current price</th>
-                                                <th>Your Price</th>
+                                                <th>On Bidding Time</th>
                                                 <th>Status</th>
                                                 <th>Goto Auction</th>
                                             </tr>
@@ -36,9 +34,7 @@
                                                 <td>${product.id }</td>
                                                 <td>${product.name} </td>
                                                 <td>${product.category.name}</td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>${product.amountTime.amountTime / 60 }&nbsp&nbsp Minute</td>
                                                 <td>${product.status.name }</td>
                                                 <td>
                                                 <div class="table-data-feature">
