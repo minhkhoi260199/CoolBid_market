@@ -100,7 +100,9 @@ public class SellerController implements ServletContextAware {
 	}
 	
 	@RequestMapping(value = {"addProduct"} ,method = RequestMethod.GET)
-	public String addProduct(ModelMap modelMap) {
+	public String addProduct(ModelMap modelMap, Authentication authentication) {
+		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
+		modelMap.put("roles", roleService.findAll());
 		modelMap.put("product", new Product());
 		return "seller/addProduct";
 	}
