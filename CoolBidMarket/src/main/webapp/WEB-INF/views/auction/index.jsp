@@ -147,13 +147,52 @@
 								appendToTable(res.auctionProducts);
 							})
 						} else {
-							swal({
-								title: "Warning",
-								text: "Bidding Failed",
-								icon: "warning",
-								button: "Close",
-							});
-						}			
+							if (res.typeError == 0) {
+								swal({
+									title: "Warning",
+									text: "Bidding Failed",
+									icon: "warning",
+									button: "Close",
+								});
+							} else if (res.typeError == 1) {
+								swal({
+									title: "Warning",
+									text: "You have to log in to join the auction",
+									icon: "warning",
+									button: "Close",
+								}).then(() => {
+									window.location.href = "${pageContext.request.contextPath}/auth/login";
+								});
+							} else if (res.typeError == 2) {
+								swal({
+									title: "Warning",
+									text: "Product's owner can't join the auction",
+									icon: "warning",
+									button: "Close",
+								})
+							} else if (res.typeError == 3) {
+								swal({
+									title: "Warning",
+									text: "The auction is over",
+									icon: "warning",
+									button: "Close",
+								})
+							} else if (res.typeError == 4) {
+								swal({
+									title: "Warning",
+									text: "The price must be greater than the total of gap and current price",
+									icon: "warning",
+									button: "Close",
+								})
+							} else if (res.typeError == 5) {
+								swal({
+									title: "Warning",
+									text: "Price can't be empty",
+									icon: "warning",
+									button: "Close",
+								})
+							}
+						}			 
 					}
 				});
 				let checkCurrentPage = $("#paginationSelect").val() ? $("#paginationSelect").val() : 1;

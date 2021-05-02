@@ -103,61 +103,75 @@ public class AuctionRestController {
 		try {
 			ReturnListAuction returnListAuction = new ReturnListAuction();
 			TimeZone.setDefault(TimeZone.getTimeZone("GMT+7:00"));
-			
-			if (authentication != null && product_id_string != "" && bid_price_string != "") {	
-				Users user = userService.findUserByUsername(authentication.getName());
-				if (user != null) {
-					double bid_price = Double.parseDouble(bid_price_string);
-					int product_id = Integer.parseInt(product_id_string);
-					
-					Product product = productService.findById(product_id);
-					double startProductPrice = product.getStartPrice();
-					double gapPrice= product.getGap();
-					double minPrice = startProductPrice + gapPrice;
-					if (product != null && user.getId() != product.getUsers().getId()) {
-						TimeZone tz = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
-						Calendar startAuctionTime = Calendar.getInstance();
+			returnListAuction.setTypeError(0);
+			if (authentication != null) {
+				if (product_id_string != "" && bid_price_string != "") {
+					Users user = userService.findUserByUsername(authentication.getName());
+					if (user != null) {
+						double bid_price = Double.parseDouble(bid_price_string);
+						int product_id = Integer.parseInt(product_id_string);
 						
-						startAuctionTime.setTimeZone(tz);
-						startAuctionTime.setTime(product.getStartTime());
-						
-						Calendar endAuctionTime = Calendar.getInstance();
-						endAuctionTime.setTimeZone(tz);
-						endAuctionTime.setTime(product.getStartTime());
-						endAuctionTime.add(Calendar.SECOND, product.getAmountTime().getAmountTime());
-						
-						Date current = new Date();
-						if (startAuctionTime.getTime().compareTo(current) <= 0 && endAuctionTime.getTime().compareTo(current) >= 0) {
-							Auction oldAuction = auctionService.getLastPriceByProductId(product_id);
-							Double currentPrice = 0.0;
-							if (oldAuction != null) {
-								currentPrice = oldAuction.getPrice();
+						Product product = productService.findById(product_id);
+						double startProductPrice = product.getStartPrice();
+						double gapPrice= product.getGap();
+						double minPrice = startProductPrice + gapPrice;
+						if (product != null && user.getId() != product.getUsers().getId()) {
+							TimeZone tz = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
+							Calendar startAuctionTime = Calendar.getInstance();
+							
+							startAuctionTime.setTimeZone(tz);
+							startAuctionTime.setTime(product.getStartTime());
+							
+							Calendar endAuctionTime = Calendar.getInstance();
+							endAuctionTime.setTimeZone(tz);
+							endAuctionTime.setTime(product.getStartTime());
+							endAuctionTime.add(Calendar.SECOND, product.getAmountTime().getAmountTime());
+							
+							Date current = new Date();
+							if (startAuctionTime.getTime().compareTo(current) <= 0 && endAuctionTime.getTime().compareTo(current) >= 0) {
+								Auction oldAuction = auctionService.getLastPriceByProductId(product_id);
+								Double currentPrice = 0.0;
+								if (oldAuction != null) {
+									currentPrice = oldAuction.getPrice();
+								} else {
+									currentPrice = startProductPrice;
+								}
+								Double gapBetween = bid_price - currentPrice;
+		
+								if (bid_price >= minPrice && gapBetween >= gapPrice) {							
+									Auction auction = new Auction();
+									auction.setUsers(user);
+									auction.setPrice(bid_price);
+									auction.setProduct(product);
+									auction.setTime(current);
+									auction.setStatus(statusService.findById(4));
+									auctionService.save(auction);
+									
+									List<AuctionProduct> auctionProducts = auctionService.getListAuction(product_id, 0);
+									
+									returnListAuction.setAuctionProducts(auctionProducts);
+									returnListAuction.setStatus(true);
+									returnListAuction.setTypeError(0);
+									return new ResponseEntity<>(returnListAuction, HttpStatus.OK);
+								} else {
+									returnListAuction.setTypeError(4);
+								}
 							} else {
-								currentPrice = startProductPrice;
+								returnListAuction.setTypeError(3);
 							}
-							Double gapBetween = bid_price - currentPrice;
-	
-							if (bid_price >= minPrice && gapBetween >= gapPrice) {							
-								Auction auction = new Auction();
-								auction.setUsers(user);
-								auction.setPrice(bid_price);
-								auction.setProduct(product);
-								auction.setTime(current);
-								auction.setStatus(statusService.findById(4));
-								auctionService.save(auction);
-								
-								List<AuctionProduct> auctionProducts = auctionService.getListAuction(product_id, 0);
-								
-								returnListAuction.setAuctionProducts(auctionProducts);
-								returnListAuction.setStatus(true);
-								return new ResponseEntity<>(returnListAuction, HttpStatus.OK);
-							}
+						} else {
+							returnListAuction.setTypeError(2);
 						}
 					}
+				} else {
+					returnListAuction.setTypeError(5);
 				}
+			} else {
+				returnListAuction.setTypeError(1);
 			}
 			returnListAuction.setAuctionProducts(null);
 			returnListAuction.setStatus(false);
+
 			return new ResponseEntity<>(returnListAuction, HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
