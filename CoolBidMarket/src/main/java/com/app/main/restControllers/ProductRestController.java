@@ -1,7 +1,9 @@
 package com.app.main.restControllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.validation.Valid;
 
@@ -28,6 +30,7 @@ import com.app.main.models.Users;
 import com.app.main.services.AmountTimeService;
 import com.app.main.services.CategoryService;
 import com.app.main.services.ProductService;
+import com.app.main.services.StatusService;
 import com.app.main.services.UserService;
 
 @RestController
@@ -42,6 +45,26 @@ public class ProductRestController {
 	CategoryService categoryService;
 	@Autowired
 	AmountTimeService amountTimeService;
+	@Autowired 
+	StatusService statusService;
+	
+	@RequestMapping(value="approve", method = RequestMethod.POST)
+	public ResponseEntity<?> approveProduct(Authentication authentication, @RequestParam("product_id") String product_id_string){
+		try {
+			TimeZone.setDefault(TimeZone.getTimeZone("GMT+7:00"));
+			Date current = new Date();
+			int product_id = Integer.parseInt(product_id_string);
+			Product product = productService.findById(product_id);
+			product.setStatus(statusService.findById(4));
+			product.setStartTime(current);
+			productService.save(product);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
 	
 	@RequestMapping(value="create", method = RequestMethod.POST)
 	public ResponseEntity<?> createProduct(@Valid @RequestBody Product product, BindingResult bindingResult, Authentication authentication){

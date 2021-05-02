@@ -55,17 +55,37 @@
                                             <td>${product.users.username }</td>
                                             <td>${product.category.name }</td>
                                             <td>${product.startPrice }</td>
-                                            <td>${product.status.name }</td>                            
-                                            <td>
-                                                <div
-													class="table-data-feature">
-			                                        <button class="btn btn-success btn-sm">
-			                                        	<i class="fa fa-dot-circle-o"></i> Approve
-			                                        </button>
-			                                        <button class="btn btn-danger btn-sm">
-			                                            <i class="fa fa-ban"></i> Reject
-			                                        </button>
-                                                </div>
+                                            <td id="statusColumn_${product.id }">
+	                                            <c:if test="${product.status.id == 1 }">
+	                                            	<div style="color:orange" >${product.status.name }</div>
+	                                            </c:if>
+	                                            <c:if test="${product.status.id == 2 }">
+	                                            	<div style="color:red" >${product.status.name }</div>
+	                                            </c:if>
+	                                            <c:if test="${product.status.id == 4 }">
+	                                            	<div style="color:green" >${product.status.name }</div>
+	                                            </c:if>
+	                                            <c:if test="${product.status.id == 5 }">
+	                                            	<div style="color:blue" >${product.status.name }</div>
+	                                            </c:if>
+	                                            <c:if test="${product.status.id == 6 }">
+	                                            	<div style="color:blue" >${product.status.name }</div>
+	                                            </c:if>
+                                            </td>      
+                                            
+                                                           
+                                            <td id="buttonColumn_${product.id }">
+	                                            <c:if test="${product.status.id == 1 }">
+	                                                <div
+														class="table-data-feature">
+				                                        <button class="btn btn-success btn-sm" onClick="approveFunction(${product.id })">
+				                                        	<i class="fa fa-dot-circle-o"></i> Approve
+				                                        </button>
+				                                        <button class="btn btn-danger btn-sm" onClick="rejectFunction(${product.id })">
+				                                            <i class="fa fa-ban"></i> Reject
+				                                        </button>
+	                                                </div>
+	                                            </c:if>        
                                             </td>
                                         </tr>
                                         <tr class="spacer"></tr>
@@ -115,6 +135,34 @@
 				</li>
 			</ul>
             <!--END Pagination-->
+	<script>
+		function approveFunction(product_id) {
+			if (product_id != "") {
+				$.ajax({
+					url: "${pageContext.request.contextPath }/api/product/approve?product_id="+product_id,
+					method: "POST",
+					success: function(res) {
+						let statusId = `#statusColumn_`+product_id;
+						let buttonId = `#buttonColumn_`+product_id;
+						$(buttonId).html("");
+						$(statusId).html(`<div style="color:green" >On Auction</div>`);
+					}
+				})
+			}
+		}
 
+		function rejectFunction(product_id) {
+			if (product_id != "") {
+				$.ajax({
+					url: "${pageContext.request.contextPath }/api/product/reject?product_id="+product_id,
+					method: "POST",
+					success: function(res) {
+						let statusId = `#statusColumn_`+product_id;
+						$(statusId).html(`<div style="color:red" >Denied</div>`);
+					}
+				})
+			}
+		}
+	</script>
 	</jsp:attribute>
 </tmp:adminTemplate>
