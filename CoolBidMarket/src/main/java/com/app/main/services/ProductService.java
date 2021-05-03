@@ -27,4 +27,6 @@ public interface ProductService {
 	
 	public List<Product> findProductByUserID(int id);
 	
+	public Integer countProductByCategory(int category_id);
+	
 }

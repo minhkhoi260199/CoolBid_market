@@ -149,7 +149,9 @@ public class ProductRestController {
 	public ResponseEntity<?> dalete(Authentication authentication, @RequestParam("id") String cat_id){
 		try {
 			int id = Integer.parseInt(cat_id);
-			categoryService.deleteCategory(id);
+			if (productService.countProductByCategory(id) == 0) {
+				categoryService.deleteCategory(id);
+			}
 			return new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
