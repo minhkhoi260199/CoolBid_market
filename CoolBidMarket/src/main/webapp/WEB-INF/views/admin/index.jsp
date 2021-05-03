@@ -45,7 +45,7 @@
                                             <th>Start price</th>
                                             <th>Status</th>
                                             <th>Detail</th>
-                                            <th></th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>

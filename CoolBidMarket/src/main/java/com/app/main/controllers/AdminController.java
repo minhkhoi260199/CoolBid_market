@@ -1,11 +1,16 @@
 package com.app.main.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.app.main.models.Category;
+import com.app.main.models.Role;
+import com.app.main.models.Users;
 import com.app.main.services.AuctionService;
 import com.app.main.services.CategoryService;
 import com.app.main.services.InvoiceService;
@@ -49,5 +54,16 @@ public class AdminController {
 	public String category(ModelMap modelMap) {
 		modelMap.put("categories", categoryService.findAll());
 		return "admin/category";
+	}
+	
+	@RequestMapping(value = {"category"} ,method = RequestMethod.POST )
+	public String index2(@ModelAttribute("category") Category category, ModelMap modelMap, Authentication authentication) {			
+		try {
+			categoryService.save(category);
+			return "redirect:/admin/category";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "admin/category";
+		}
 	}
 }
