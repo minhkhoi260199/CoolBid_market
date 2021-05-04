@@ -33,7 +33,7 @@
                                         <tr class="tr-shadow">
                                             <td>${invoice.id }</td>
                                             <td>${invoice.product.name }</td>
-                                            <td>${invoice.users.name }</td>
+                                            <td>${invoice.product.users.name }</td>
                                             <td>${invoice.price }</td>   
                                             <td>${invoice.time }</td>	                                                            
                                             <td>${invoice.status.name }</td>
