@@ -31,6 +31,12 @@
  </tag>
  
  <tag>
+ 	<name>indexNonSearchHeader</name>
+ 	<tag-class>com.app.main.customTags.HeaderNonsearchTag</tag-class>
+ 	<body-content>empty</body-content>
+ </tag>
+ 
+ <tag>
  	<name>customerHeader</name>
  	<tag-class>com.app.main.customTags.CustomerHeaderTag</tag-class>
  	<body-content>empty</body-content>

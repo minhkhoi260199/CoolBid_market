@@ -133,6 +133,33 @@ public class ProductRestController {
 		}
 	}
 	
+	@RequestMapping(value="createCategory", method = RequestMethod.POST)
+	public ResponseEntity<?> createCategory(@Valid @RequestBody Category category, Authentication authentication){
+		try {
+			
+			categoryService.save(category);
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@RequestMapping(value="deleteCategory", method = RequestMethod.POST)
+	public ResponseEntity<?> dalete(Authentication authentication, @RequestParam("id") String cat_id){
+		try {
+			int id = Integer.parseInt(cat_id);
+			if (productService.countProductByCategory(id) == 0) {
+				categoryService.deleteCategory(id);
+			}
+			return new ResponseEntity<>(HttpStatus.OK);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 	@RequestMapping(value = "getDataList", method=RequestMethod.GET)
 	public ResponseEntity<?> getDataList(Authentication authentication){
 		try {

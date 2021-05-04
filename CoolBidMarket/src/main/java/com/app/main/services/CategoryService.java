@@ -8,4 +8,6 @@ public interface CategoryService {
 	public Iterable<Category> findAll();
 	public Category findById(int id);
 	public Iterable<Category> findAllWithLimit();
+	public Category save(Category category);
+	public void deleteCategory(int id);
 }

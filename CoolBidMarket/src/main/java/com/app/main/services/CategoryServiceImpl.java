@@ -15,6 +15,15 @@ public class CategoryServiceImpl implements CategoryService {
 		// TODO Auto-generated method stub
 		return categoryRepository.findAll();
 	}
+	
+	@Override
+	public void deleteCategory(int id) {
+		// TODO Auto-generated method stub
+		categoryRepository.deleteById(id);
+	}
+
+
+
 	@Override
 	public Category findById(int id) {
 		// TODO Auto-generated method stub
@@ -25,5 +34,10 @@ public class CategoryServiceImpl implements CategoryService {
 		// TODO Auto-generated method stub
 		return categoryRepository.findAllWithLimit();
 	}
-
+	@Override
+	public Category save(Category category) {
+		// TODO Auto-generated method stub
+		return categoryRepository.save(category);
+	}
+	
 }

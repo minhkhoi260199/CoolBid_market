@@ -6,7 +6,7 @@
 <tmp:customerTemplate title="Auction Detail">
 	<jsp:attribute name="content">
 			<c:if test="${empty users}">
-				<ctag:indexHeader/>
+				<ctag:indexNonSearchHeader/>
 			</c:if>
 			<c:if test="${not empty users}">
 				<ctag:nonSearchHeader/>
@@ -54,8 +54,8 @@
 		                                                        </div>
 		                                                    </div>
 		                                                </div>
-		                                                <button type="button" id="acceptBid" class="btn btn-success btn-sm" style="float: right; padding: 5px 20px;">
-		                                                    <i class="fa fa-dot-circle-o"></i> BID
+		                                                <button type="button" id="acceptBid" class="btn btn-primary btn-sm" style="float: right; padding: 5px 20px;">
+		                                                    <i class="fa fa-dot-circle-o"></i> BID NOW
 		                                                </button>
 		                                            </form>
 	                                            </div>

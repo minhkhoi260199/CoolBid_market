@@ -45,6 +45,13 @@ public class ProductServiceImpl implements ProductService {
 	public Product save(Product product) {
 		return productRepository.save(product);
 	}
+	
+	
+	@Override
+	public Integer countProductByCategory(int category_id) {
+		// TODO Auto-generated method stub
+		return productRepository.countTotalAvailableProductWithCategory(category_id);
+	}
 
 	@Override
 	public CustomerProduct findDetailById(int id) {
