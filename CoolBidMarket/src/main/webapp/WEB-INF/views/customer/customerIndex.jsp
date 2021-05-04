@@ -9,7 +9,7 @@
             <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">
-                    <div class="row" id="itemList">
+                    <div class="row col-md-11" style="margin:auto" id="itemList">
 
                     </div>
 
