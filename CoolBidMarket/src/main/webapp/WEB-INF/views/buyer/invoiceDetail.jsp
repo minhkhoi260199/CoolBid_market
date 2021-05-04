@@ -24,25 +24,37 @@
 									<input type="hidden" name="cmd" value="_cart" />
 									<input type="hidden" name="business" value="${paypalConfig.business}" />
 									
-									<div class="row form-group">
-										<div class="col col-md-3">
-											<label class=" form-control-label">ID:</label>
-										</div>
-										<div class="col-12 col-md-9">
-											<p class="form-control-static">${auction.id }</p>
-										</div>
-										<div class="col col-md-3">
-											<label class=" form-control-label">Product name:</label>
-										</div>
-										<div class="col-12 col-md-9">
-											<p class="form-control-static">${auction.product.name }</p>
-										</div>
-										<div class="col col-md-3">
-											<label class=" form-control-label">Price:</label>
-										</div>
-										<div class="col-12 col-md-9">
-											<p class="form-control-static">${auction.price }</p>
-										</div>
+									<div class="form-group col"><h3><strong>${auction.product.name }</strong></h3></div>
+										<hr>
+				                        <div class="banner-img">
+				                            <img class="card-img-top" src="http://via.placeholder.com/640x360" alt="Image 1">
+				                        </div>
+				                        <hr>
+										<div class="form-group row">
+											<div class="col col-lg-6">
+										      	<label><strong>Start Time</strong></label>
+										   		<p class="card-text form-control">${auction.product.startTime }</p>
+										    </div>
+										    <div class="col col-lg-6">
+										      	<label><strong>End Time</strong></label>
+										      <p class="card-text form-control">${auction.time } </p>
+										    </div>
+									    </div>
+				             			<hr>
+				             			<div class="form-group row">
+											<div class="col col-lg-12">
+										      	<label><strong>Price</strong></label>
+										   		<p class="card-text form-control">${auction.price }</p>
+										    </div>
+										    <div class="col col-lg-12">
+										      	<label><strong>Buyer</strong></label>
+										   		<p class="card-text form-control">${auction.users.name }</p>
+										    </div>
+										     <div class="col col-lg-12">
+										      	<label><strong>Email</strong></label>
+										   		<p class="card-text form-control">${auction.users.email }</p>
+										    </div>
+									    </div>
 										<div>										
 											<input type="hidden" name="item_number_${i.index + 1 }" value="${auction.id }">
 											<input type="hidden" name="item_name_${i.index + 1 }" value="${auction.product.name }">

@@ -14,50 +14,42 @@
 							<div class="card-header">
 								<strong>Order</strong> Detail
 							</div>
-							<div class="card-body card-block">
+							<div class="card-body card-block" style="margin:auto">
 								<form action="" method="post" enctype="multipart/form-data"
 											class="form-horizontal">
-									<div class="row form-group">
-										<div class="col col-md-3">
-											<label class=" form-control-label">ID :</label>
-										</div>
-										<div class="col-12 col-md-9">
-											<p class="form-control-static">${auction.id }</p>
-										</div>
-									</div>
-									<div class="row form-group">
-										<div class="col col-md-3">
-											<label for="text-input" class=" form-control-label">Product Name:</label>
-										</div>
-										<div class="col-12 col-md-9">
-											<p class="form-control-static">${auction.product.name }</p>
-										</div>									
-									</div>
-									<div class="row form-group">
-										<div class="col col-md-3">
-											<label for="email-input" class=" form-control-label">Buyer:</label>
-										</div>
-										<div class="col-12 col-md-9">
-											<p class="form-control-static">${auction.users.name }</p>
-										</div>	
-									</div>	
-									<div class="row form-group">
-										<div class="col col-md-3">
-											<label for="email-input" class=" form-control-label">Price:</label>
-										</div>
-										<div class="col-12 col-md-9">
-											<p class="form-control-static">${auction.price }</p>
-										</div>	
-									</div>	
-									<div class="row form-group">
-										<div class="col col-md-3">
-											<label for="email-input" class=" form-control-label">Status:</label>
-										</div>
-										<div class="col-12 col-md-9">
-											<p class="form-control-static">${auction.status.name }</p>
-										</div>	
-									</div>								
+				                        <center><div class="form-group col"><h3><strong>${auction.product.name }</strong></h3></div></center>
+										<hr>
+				                        <div class="banner-img">
+				                            <img class="card-img-top" src="" alt="Image 1">
+				                        </div>
+				                        <hr>
+										<div class="form-group row">
+											<div class="col col-lg-6">
+										      	<label><strong>Start Time</strong></label>
+										   		<p class="card-text form-control">${auction.product.startTime }</p>
+										    </div>
+										    <div class="col col-lg-6">
+										      	<label><strong>End Time</strong></label>
+										      <p class="card-text form-control">${auction.time } </p>
+										    </div>
+									    </div>
+				             			<hr>
+				             			<div class="form-group row">
+											<div class="col col-lg-12">
+										      	<label><strong>Price</strong></label>
+										   		<p class="card-text form-control">${auction.price }</p>
+										    </div>
+										    <div class="col col-lg-12">
+										      	<label><strong>Buyer</strong></label>
+										   		<p class="card-text form-control">${auction.users.name }</p>
+										    </div>
+										     <div class="col col-lg-12">
+										      	<label><strong>Email</strong></label>
+										   		<p class="card-text form-control">${auction.users.email }</p>
+										    </div>
+									    </div>
 								</form>
+							
 							</div>
 							<div class="card-footer">
 								<button type="submit" class="btn btn-light btn-sm">
