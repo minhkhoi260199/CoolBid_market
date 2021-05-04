@@ -92,10 +92,12 @@ public class SellerController implements ServletContextAware {
 		return "seller/invoices";
 	}
 	
-	@RequestMapping(value = {"invoiceDetail"} ,method = RequestMethod.GET)
-	public String invoiceDetail(ModelMap modelMap, Authentication authentication) {
-		
-		modelMap.put("auction", "Infomation");
+	@RequestMapping(value = {"invoiceDetail/{id}"} ,method = RequestMethod.GET)
+	public String invoiceDetail(@PathVariable("id") int id,ModelMap modelMap, Authentication authentication) {
+		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
+		modelMap.put("roles", roleService.findAll());
+		Auction auction = auctionService.getProductId(id);
+		modelMap.put("auction", auction);
 		return "seller/invoiceDetail";
 	}
 	

@@ -13,7 +13,7 @@
 					<div class="col-lg-6" style="margin: auto;">
 						<div class="card">
 							<div class="card-header">
-								<strong>Account</strong> Profile
+								<strong>Invoice</strong> Detail
 							</div>
 							<div class="card-body card-block">
 							<form action="${paypalConfig.posturl }" method="post" enctype="multipart/form-data"

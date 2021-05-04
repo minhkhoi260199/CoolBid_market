@@ -37,6 +37,18 @@
                                             <td>${invoice.price }</td>   
                                             <td>${invoice.time }</td>	                                                            
                                             <td>${invoice.status.name }</td>
+                                            <td>
+  												<div class="table-data-feature">
+													<button
+														class="item" data-toggle="tooltip" data-placement="top"
+														title="Send">
+														<a href="${pageContext.request.contextPath }/seller/invoiceDetail/${invoice.id }" >
+                                                            <i
+															class="zmdi zmdi-mail-send"></i>
+														</a>
+                                                     </button>
+												</div>
+											</td>
                                         </tr>
                                         <tr class="spacer"></tr>
                                         </c:forEach>
