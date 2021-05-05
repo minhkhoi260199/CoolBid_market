@@ -27,7 +27,7 @@
 									<div class="form-group col"><h3><strong>${auction.product.name }</strong></h3></div>
 										<hr>
 				                        <div class="banner-img">
-				                            <img class="card-img-top" src="http://via.placeholder.com/640x360" alt="Image 1">
+				                            <img class="card-img-top" src="${pageContext.request.contextPath }/uploads/images/${auction.product.image }" alt="Image 1">
 				                        </div>
 				                        <hr>
 										<div class="form-group row">
@@ -51,7 +51,7 @@
 										   		<p class="card-text form-control">${auction.users.name }</p>
 										    </div>
 										     <div class="col col-lg-12">
-										      	<label><strong>Email</strong></label>
+										      	<label><strong>Email to pay</strong></label>
 										   		<p class="card-text form-control">${auction.users.email }</p>
 										    </div>
 									    </div>

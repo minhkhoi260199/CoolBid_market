@@ -31,6 +31,7 @@
                                                 <th>On bidding time</th>
                                                 <th>Start price</th>
                                                 <th>Status</th>
+                                                <th>Detail</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -58,7 +59,13 @@
 		                                            	<div style="color:blue" >${product.status.name }</div>
 		                                            </c:if>
 												</td>
-                                               
+												<td>
+												<a href="${pageContext.request.contextPath }/auction?id=${product.id }">
+                                            	<button class="btn btn-warning btn-sm" ">
+				                                     <!--i class="fa fa-dot-circle-o"></i--> Detail...
+				                                </button>
+				                                </a>
+                                               </td>
                                             <tr class="spacer"></tr>
                                         </c:forEach>
                                         </tbody>

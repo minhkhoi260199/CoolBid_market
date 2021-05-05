@@ -50,10 +50,10 @@
                                                 </td>
                                                 <td>
 		                                          	 <a href="${pageContext.request.contextPath }/auction?id=${product.id }">
-		                                              <button class="item" title="Detail">
-		                                                  <i class="zmdi zmdi-mail-send"></i>
-		                                               </button>
-		                                             </a>
+                                            	<button class="btn btn-warning btn-sm" ">
+				                                     <!--i class="fa fa-dot-circle-o"></i--> Detail...
+				                                </button>
+				                                </a>
 	                                            </td>
                                             </tr>
                                             

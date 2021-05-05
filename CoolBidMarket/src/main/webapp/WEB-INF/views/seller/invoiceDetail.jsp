@@ -20,7 +20,7 @@
 				                        <center><div class="form-group col"><h3><strong>${auction.product.name }</strong></h3></div></center>
 										<hr>
 				                        <div class="banner-img">
-				                            <img class="card-img-top" src="" alt="Image 1">
+				                            <img class="card-img-top" src="${pageContext.request.contextPath }/uploads/images/${auction.product.image }" alt="Image 1">
 				                        </div>
 				                        <hr>
 										<div class="form-group row">
