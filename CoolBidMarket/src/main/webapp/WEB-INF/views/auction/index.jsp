@@ -71,13 +71,13 @@
 	                            </div>
 	                            <div class="col-lg-4">
 	                                <h3 class="title-1 m-b-25">Auction</h3>
-	                                <div class="table-responsive table--no-card m-b-40">
+	                                <div class="table-responsive table--no-card m-b-40" style="overflow: hidden;">
 	                                    <table class="table table-borderless table-striped table-earning">
 	                                        <thead>
 	                                            <tr>
-	                                                <th>Time</th>
-	                                                <th>Name</th>
-	                                                <th>Price</th>
+	                                                <th style="font-weight: bold">Time</th>
+	                                                <th style="font-weight: bold">Name</th>
+	                                                <th style="font-weight: bold">Price</th>
 	                                            </tr>
 	                                        </thead>
 	                                    </table>
@@ -110,15 +110,21 @@
 		
 			function appendToTable(res) {
 				let html = "";
+				let style = "";
 				for(let i = 0; i < res.length; i++) {
+					if (i == 0 && $("#paginationSelect").val() == 1) {
+						style = "style='color:red'";
+					} else {
+						style = "";
+					}
 					let timeAuction = formatDate(res[i].auctionTime);
 					let fullName = res[i].fullName ? res[i].fullName : "";
 					let price = res[i].price ? formatNumberToString(res[i].price, 3) : 0;
 					html += `
 						<tr>
-							<td>`+timeAuction+`</td>
-							<td>`+fullName+`</td>
-							<td>$`+price+`</td>
+							<td `+style+`>`+timeAuction+`</td>
+							<td `+style+`>`+fullName+`</td>
+							<td `+style+`>$`+price+`</td>
 						</tr>
 						`;
 					
@@ -338,7 +344,7 @@
 								+ "h " + minutes + "m " + seconds + "s ";
 	
 						// If the count down is finished, write some text
-						if (distance < 0) {
+						if (distance <= 0) {
 							clearInterval(x);
 							document.getElementById("demo").innerHTML = "EXPIRED";
 							$("#acceptBid").prop("disabled", true);

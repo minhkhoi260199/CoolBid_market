@@ -89,10 +89,6 @@
 	                                <div class="listNotification" id="listNotification">
 		                               
 	                                </div>
-									<div class="notifi__footer">
-										<a href="${pageContext.request.contextPath }/resources/#">All
-											notifications</a>
-									</div>
 								</div>
 							</div>
 						</div>
