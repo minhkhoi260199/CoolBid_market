@@ -111,10 +111,13 @@ public class SellerController implements ServletContextAware {
 	
 	@RequestMapping(value = {"addProduct"} ,method = RequestMethod.POST)
 	public String processAddProduct(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult, Authentication authentication, ModelMap modelMap, @RequestParam("category") String categoryString, @RequestParam("amount_time_id") String amountTimeString, @RequestParam("file") MultipartFile file) {
+		System.out.println(categoryString);
+		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
+		modelMap.put("roles", roleService.findAll());
 		if (authentication.getName() != null) {
 			if (!bindingResult.hasErrors()) {
-				if (categoryString != "") {
-					if (amountTimeString != "") {
+				if (categoryString != "" && categoryString != null) {
+					if (amountTimeString != "" && amountTimeString != null) {
 						try {
 							int categoryId = Integer.parseInt(categoryString);
 							Category category = categoryService.findById(categoryId);

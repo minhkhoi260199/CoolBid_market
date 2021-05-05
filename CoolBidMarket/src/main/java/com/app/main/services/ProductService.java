@@ -29,4 +29,6 @@ public interface ProductService {
 	
 	public Integer countProductByCategory(int category_id);
 	
+	public List<Product> findAllDESC();
+	
 }

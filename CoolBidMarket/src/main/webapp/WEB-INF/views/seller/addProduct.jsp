@@ -59,7 +59,7 @@
 										
 										<div class="row form-group">
 											<div class="col col-md-3">
-												<label for="amount_time_id" class=" form-control-label">Amount Time</label> 
+												<label for="amount_time_id" class=" form-control-label">Amount Time</label> <span  id="error_amount_time_id" style="color:red; font-style:italic"></span>
 											</div>
 											<div class="col-12 col-md-9">
 												<select name="amount_time_id" id="amount_time_id" class="form-control select2" data-placeholder="Select amount time">
@@ -70,7 +70,7 @@
 										
 										<div class="row form-group">
 											<div class="col col-md-3">
-												<label for="category" class=" form-control-label">Category</label> 
+												<label for="category" class=" form-control-label">Category</label> <span id="error_category" style="color:red; font-style:italic"></span>
 											</div>
 											<div class="col col-md-9">
 												<select name="category" id="category"
@@ -91,7 +91,7 @@
 									</s:form>
 								</div>
 								<div class="card-footer">
-									<button type="submit" class="btn btn-primary btn-sm" id="submitButton">
+									<button type="button" class="btn btn-primary btn-sm" id="submitButton">
 										<i class="fa fa-dot-circle-o"></i> Submit
 									</button>
 									<button type="button" class="btn btn-danger btn-sm" id="resetButton">
@@ -109,12 +109,49 @@
 			$(".select2").select2({
 				//allowClear: true,
 			})
+		
+			
+			function convertSecondToTimeString(distance) {
+				var days = Math.floor(distance / (60 * 60 * 24));
+				var hours = Math.floor((distance % (60 * 60 * 24))
+						/ (60 * 60));
+				var minutes = Math.floor((distance % (60 * 60))
+						/ (60));
+				var seconds = Math.floor((distance % (60)));
+				
+				let dayString = "";
+				if (days > 0) {
+					dayString = days + " days ";
+				}
+				
+				let minuteString = "";
+				if (minutes > 0) {
+					minuteString = minutes + " minutes ";
+				}
+
+				let hourString = "";
+				if (hours > 0) {
+					hourString = hours + " hours ";
+				}
+
+				let secondString = "";
+				if (seconds > 0) {
+					secondString = seconds + " seconds ";
+				}
+	
+				let stringDate = dayString + hourString + minuteString + secondString;
+				return stringDate;
+			}
 			
 			function appendToSelectBox(id, data, colValue, colOption){
 				let html = "";
 				for(let i = 0; i < data.length; i++) {
 					let item = data[i];
-					html += '<option value="'+item[colValue]+'">'+item[colOption]+'</option>';
+					if (id == "amount_time_id") {
+						html += '<option value="'+item[colValue]+'">'+convertSecondToTimeString(item[colOption])+'</option>'; 
+					} else {
+						html += '<option value="'+item[colValue]+'">'+item[colOption]+'</option>';
+					}
 				}
 				$('#'+id).append(html);
 			}
@@ -140,6 +177,14 @@
 			$(document).ready(function(){
 				getData();
 				$("#submitButton").on("click", function() {
+					if ($("#amount_time_id").val() == "" || $("#amount_time_id").val() == null) {
+						$("#error_amount_time_id").html("Can't be empty");
+						return;
+					}
+					if ($("#category").val() == "" || $("#category").val() == null) {
+						$("#error_category").html("Can't be empty");
+						return;
+					}
 					$("#formAddProduct").submit();
 				})
 
@@ -150,8 +195,8 @@
 					$("#text").val("");
 					$("#startPrice").val("");
 					$("#gap").val("");
-					$("#amount_time_id").val(1).trigger("change");
-					$("#category").val(1).trigger("change");
+					$("#amount_time_id").val($("#amount_time_id").find("option:first-child").val()).trigger("change");
+					$("#category").val($("#category").find("option:first-child").val()).trigger("change");
 					$("#file").val("");
 				});
 

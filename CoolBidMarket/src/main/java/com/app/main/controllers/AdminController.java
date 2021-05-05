@@ -32,7 +32,7 @@ public class AdminController {
 	
 	@RequestMapping(value = {"", "index"} ,method = RequestMethod.GET)
 	public String index(ModelMap modelMap) {
-		modelMap.put("products", productService.findAll());
+		modelMap.put("products", productService.findAllDESC());
 		System.out.println("product" + productService.findAll());
 		return "admin/index";
 	}
