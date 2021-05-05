@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <tmp:customerTemplate title="Your Orders">
 	<jsp:attribute name="content">
-			<ctag:customerHeader/>
+			<ctag:nonSearchHeader/>
 			<ctag:sellerNav/>
             <div class="main-content">
                 <div class="section__content section__content--p30">

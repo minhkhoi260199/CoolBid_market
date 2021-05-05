@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <tmp:customerTemplate title="Your Product">
 	<jsp:attribute name="content">
-			<ctag:customerHeader/>
+			<ctag:nonSearchHeader/>
 			<ctag:sellerNav/>
             <div class="main-content">
                 <div class="section__content section__content--p30">
@@ -41,7 +41,23 @@
                                                 <td>${product.category.name}</td>
                                                 <td>${product.amountTime.amountTime / 60 }&nbsp&nbsp Minute</td>
                                                 <td>${product.startPrice }</td>
-                                                <td>${product.status.name }</td>
+                                                <td>
+													<c:if test="${product.status.id == 1 }">
+	                                            		<div style="color:orange" >${product.status.name }</div>
+		                                            </c:if>
+		                                            <c:if test="${product.status.id == 2 }">
+		                                            	<div style="color:red" >${product.status.name }</div>
+		                                            </c:if>
+		                                            <c:if test="${product.status.id == 4 }">
+		                                            	<div style="color:green" >${product.status.name }</div>
+		                                            </c:if>
+		                                            <c:if test="${product.status.id == 5 }">
+		                                            	<div style="color:blue" >${product.status.name }</div>
+		                                            </c:if>
+		                                            <c:if test="${product.status.id == 6 }">
+		                                            	<div style="color:blue" >${product.status.name }</div>
+		                                            </c:if>
+												</td>
                                                
                                             <tr class="spacer"></tr>
                                         </c:forEach>
