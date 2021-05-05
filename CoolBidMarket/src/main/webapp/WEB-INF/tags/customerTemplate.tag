@@ -172,6 +172,7 @@
 				clearInterval(intervalListHtml);
 				intervalListHtml = "";
 			}
+			
 		}
 		$(document).ready(function() {
 			getTotalNotification();
@@ -184,6 +185,10 @@
 		}
 
 		function intervalGetTotalNotification() {
+			if (intervalTotalNotification != "") {
+				clearInterval(intervalTotalNotification);
+				intervalTotalNotification = "";
+			}
 			intervalTotalNotification = setInterval(function(){ 
 				getTotalNotification(1);
 			}, 5000);

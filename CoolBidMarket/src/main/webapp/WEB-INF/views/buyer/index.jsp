@@ -10,7 +10,7 @@
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-                        <div class="row">
+                        <div class="row col-md-11" style="margin:auto">
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
                                 <h3 class="title-5 m-b-35">Your auctioned products</h3>
@@ -19,12 +19,12 @@
                                     <table class="table table-data2">
                                         <thead>
                                             <tr>
-                                                <th>Product ID</th>
-                                                <th>Product Name</th>
-                                                <th>Category</th>
-                                                <th>On Bidding Time</th>
-                                                <th>Status</th>
-                                                <th>Goto Auction</th>
+                                                <th style="font-weight: bold">Product ID</th>
+                                                <th style="font-weight: bold">Product Name</th>
+                                                <th style="font-weight: bold">Category</th>
+                                                <th style="font-weight: bold">On Bidding Time</th>
+                                                <th style="font-weight: bold">Status</th>
+                                                <th style="font-weight: bold">Goto Auction</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -35,16 +35,26 @@
                                                 <td>${product.name} </td>
                                                 <td>${product.category.name}</td>
                                                 <td>${product.amountTime.amountTime / 60 }&nbsp&nbsp Minute</td>
-                                                <td>${product.status.name }</td>
                                                 <td>
-                                                <div class="table-data-feature">
-                                                <a href="${pageContext.request.contextPath }/auction?id=${product.id }">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Detail">
-                                                        <i class="zmdi zmdi-mail-send"></i>
-                                                    </button>
-                                                </a>
-                                                </div>
-                                            </td>
+                                                	<c:if test="${product.status.id == 4 }">
+                                                		<div style="color:blue">
+                                                			${product.status.name } 
+                                                		</div>
+                                                	</c:if>
+                                                	<c:if test="${product.status.id == 5 }">
+                                                		<div style="color:red">
+                                                			${product.status.name } 
+                                                		</div>
+                                                	</c:if>
+                                                	
+                                                </td>
+                                                <td>
+		                                          	 <a href="${pageContext.request.contextPath }/auction?id=${product.id }">
+		                                              <button class="item" title="Detail">
+		                                                  <i class="zmdi zmdi-mail-send"></i>
+		                                               </button>
+		                                             </a>
+	                                            </td>
                                             </tr>
                                             
                                             <tr class="spacer"></tr>

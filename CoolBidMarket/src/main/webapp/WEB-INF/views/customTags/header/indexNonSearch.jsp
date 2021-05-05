@@ -23,7 +23,6 @@
 							<button type="button" class="btn btn-warning btn-sm">Register</button>
 						</a>
 					</div>
-
 				</div>
 			</div>
 		</div>

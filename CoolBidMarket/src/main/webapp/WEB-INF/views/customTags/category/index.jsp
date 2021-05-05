@@ -7,6 +7,11 @@
 		<div class="header__logo"></div>
 		<div class="header__navbar">
 			<ul class="list-unstyled">
+				<c:if test="${categories != null }">
+					<li>
+						<a href="${pageContext.request.contextPath }/customer">All</a>
+					</li>
+				</c:if>
 				<c:forEach var="category" items="${categories}">
 					<li>
 						<a href="${pageContext.request.contextPath }/customer?type=${category.getId()}"> <i class="fas fa-shopping-basket"></i> <span
