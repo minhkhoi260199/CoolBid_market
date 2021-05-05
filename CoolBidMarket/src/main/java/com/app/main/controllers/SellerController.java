@@ -111,14 +111,14 @@ public class SellerController implements ServletContextAware {
 	
 	@RequestMapping(value = {"addProduct"} ,method = RequestMethod.POST)
 	public String processAddProduct(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult, Authentication authentication, ModelMap modelMap, @RequestParam("category") String categoryString, @RequestParam("amount_time_id") String amountTimeString, @RequestParam("file") MultipartFile file) {
-		System.out.println(categoryString);
 		modelMap.put("users", userService.findUserByUsername(authentication.getName()));
 		modelMap.put("roles", roleService.findAll());
 		if (authentication.getName() != null) {
 			if (!bindingResult.hasErrors()) {
-				if (categoryString != "" && categoryString != null) {
-					if (amountTimeString != "" && amountTimeString != null) {
+				if (categoryString != "") {
+					if (amountTimeString != "") {
 						try {
+							System.out.println("Hello4");
 							int categoryId = Integer.parseInt(categoryString);
 							Category category = categoryService.findById(categoryId);
 							product.setCategory(category);
@@ -137,15 +137,18 @@ public class SellerController implements ServletContextAware {
 							productService.save(product);
 							return "redirect:/seller";
 						} catch (Exception e) {
-
+							System.out.println("Hello1");
 						}
 					} else {
 						bindingResult.rejectValue("amount_time_id", "NotEmpty");
+						System.out.println("Hello");
 					}
 				} else {
 					bindingResult.rejectValue("category", "NotEmpty");
+					System.out.println("Hello2");
 				}
 			}
+			System.out.println(bindingResult.hasErrors());
 		}
 		modelMap.put("product", product);
 		return "seller/addProduct";

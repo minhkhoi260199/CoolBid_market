@@ -50,6 +50,10 @@
 										      	<label><strong>Buyer</strong></label>
 										   		<p class="card-text form-control">${auction.users.name }</p>
 										    </div>
+										    <div class="col col-lg-12">
+										      	<label><strong>Phone</strong></label>
+										   		<p class="card-text form-control">${auction.users.phone }</p>
+										    </div>
 										     <div class="col col-lg-12">
 										      	<label><strong>Email to pay</strong></label>
 										   		<p class="card-text form-control">${auction.users.email }</p>

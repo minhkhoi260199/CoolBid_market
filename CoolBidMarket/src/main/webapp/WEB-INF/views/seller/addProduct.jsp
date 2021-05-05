@@ -91,7 +91,7 @@
 									</s:form>
 								</div>
 								<div class="card-footer">
-									<button type="button" class="btn btn-primary btn-sm" id="submitButton">
+									<button type="submit" class="btn btn-primary btn-sm" id="submitButton">
 										<i class="fa fa-dot-circle-o"></i> Submit
 									</button>
 									<button type="button" class="btn btn-danger btn-sm" id="resetButton">

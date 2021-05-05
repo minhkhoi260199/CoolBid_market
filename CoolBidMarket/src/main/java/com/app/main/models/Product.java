@@ -35,9 +35,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Product implements java.io.Serializable {
 
 	private Integer id;
-	@NotNull
 	private AmountTime amountTime;
-	@NotNull
 	private Category category;
 	private Status status;
 	private String image;

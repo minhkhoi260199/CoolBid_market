@@ -82,7 +82,9 @@ public class BuyerController {
 	public String invoiceDetail(@PathVariable("id") int id,ModelMap modelMap, Authentication authentication) {
 		Auction auction = auctionService.getProductId(id);
 		modelMap.put("auction", auction);
-		
+		Users users = userService.findUserByUsername(authentication.getName());
+		modelMap.put("users", users);
+		modelMap.put("roles", roleService.findAll());
 		modelMap.put("paypalConfig", payPalService.getPayPalConfig());
 		return "buyer/invoiceDetail";
 	}
